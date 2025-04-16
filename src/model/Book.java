@@ -6,11 +6,11 @@ public class Book {
  private String bookAuthor;
  private int bookPublishYear;
  private String bookEditorial;
- private String bookAvailability;
+ private int bookAvailability;
 
     public Book(String isbnCode, String bookTitle,
                 String bookAuthor, int bookPublishYear,
-                String bookEditorial, String bookAvailability) {
+                String bookEditorial, int bookAvailability) {
         this.isbnCode = isbnCode;
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
@@ -39,7 +39,7 @@ public class Book {
         return bookEditorial;
     }
 
-    public String getBookAvailability() {
+    public int getBookAvailability() {
         return bookAvailability;
     }
 
@@ -63,7 +63,20 @@ public class Book {
         this.bookEditorial = bookEditorial;
     }
 
-    public void setBookAvailability(String bookAvailability) {
+    public void setBookAvailability(int bookAvailability) {
         this.bookAvailability = bookAvailability;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{ " +
+                "isbnCode='" + isbnCode + '\'' +
+                ", bookTitle='" + bookTitle + '\'' +
+                ", bookAuthor='" + bookAuthor + '\'' +
+                ", bookPublishYear=" + bookPublishYear +
+                ", bookEditorial='" + bookEditorial + '\'' +
+                ", bookAvailability=" + bookAvailability +
+                ", reference=" + super.toString() +
+                '}';
     }
 }
