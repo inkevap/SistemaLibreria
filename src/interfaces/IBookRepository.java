@@ -2,6 +2,7 @@ package interfaces;
 
 import model.Book;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IBookRepository {
@@ -10,7 +11,7 @@ public interface IBookRepository {
 
     public Optional<Book> findBookByIsbn(String isbn);
 
-    public Optional<Book> findBookByText(String text);
+    public List<Book> findBookByText(String text);
 
     public void removeBook(String isbn);
 
