@@ -51,4 +51,26 @@ public class MemoryBookRepository implements IBookRepository {
         }
     }
 
+    public List<Book> findAllBooks() {
+        return books;
+    }
+
+    public boolean existsByIsbn(String isbn){
+        return books.stream().anyMatch(
+                        actualBook ->
+                                actualBook.getIsbnCode().toLowerCase().contains(isbn.toLowerCase())
+                );
+    }
+
+    public List<Book> findBooksByAuthor(String author) {
+        return books.stream().filter(
+                        actualBook -> actualBook.getBookAuthor().toLowerCase().contains(author.toLowerCase())
+                )
+                .collect(Collectors.toList());
+    }
+
+    public long countBooks(){
+        return books.size();
+    }
+
 }

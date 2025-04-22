@@ -16,4 +16,12 @@ public interface IBookRepository {
     public void removeBook(String isbn);
 
     public void updateBook(Book book);
+
+    public List<Book> findAllBooks(); // – para obtener todos los libros.
+
+    public boolean existsByIsbn(String isbn); // – para validaciones.
+
+    public List<Book> findBooksByAuthor(String author);
+
+    public long countBooks(); //para estadísticas.*/
 }
