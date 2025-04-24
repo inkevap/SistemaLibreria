@@ -1,4 +1,4 @@
-package util;
+package main.util;
 
 public class Constants {
     public static final String ADMIN_ROLE = "ADMIN";

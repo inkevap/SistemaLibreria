@@ -1,6 +1,6 @@
-package model;
+package main.model;
 
-import static util.Constants.USER_ROLE;
+import static main.util.Constants.USER_ROLE;
 
 public class User {
     private String userName;

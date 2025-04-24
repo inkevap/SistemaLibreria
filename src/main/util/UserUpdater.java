@@ -1,7 +1,6 @@
-package util;
+package main.util;
 
-import model.Book;
-import model.User;
+import main.model.User;
 
 public class UserUpdater {
 
