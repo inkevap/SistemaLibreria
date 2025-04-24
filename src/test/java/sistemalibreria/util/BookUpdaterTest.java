@@ -1,10 +1,13 @@
 package sistemalibreria.util;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sistemalibreria.model.Book;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BookUpdaterTest {
+
+    @DisplayName("updateBook valida valores distintos/validos")
     @Test
     public void updateBook_updatesOnlyValidFields() {
         Book outdated = new Book();
