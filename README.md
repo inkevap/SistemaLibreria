@@ -8,7 +8,7 @@ Sistema de gestión para una librería. Proyecto académico en Java que implemen
 
 ## 🧾 Descripción
 
-Este sistema permite administrar libros, usuarios y préstamos de manera estructurada. Está diseñado para mantener un **bajo acoplamiento** y **alta cohesión**, utilizando interfaces, clases modelo, servicios y una posible capa futura de persistencia.
+Este sistema permite administrar libros, usuarios y préstamos de manera estructurada. Está diseñado para mantener un **bajo acoplamiento** y **alta cohesión**, utilizando main.interfaces, clases modelo, servicios y una posible capa futura de persistencia.
 
 ---
 
@@ -30,8 +30,8 @@ SistemaLibreria/
 │   └── main/
 │       └── java/
 │           └── sistemalibreria/
-│               ├── interfaces/         # Contratos para repositorios
-│               ├── model/              # Clases Book, User, Loan, etc.
+│               ├── main.interfaces/         # Contratos para repositorios
+│               ├── main.model/              # Clases Book, User, Loan, etc.
 │               ├── services/           # Lógica de negocio (UserService, BookService, LoanService)
 │               └── utils/              # Métodos auxiliares
 ├── .gitignore
@@ -50,7 +50,7 @@ SistemaLibreria/
 | **O** - Abierto/Cerrado | Interfaces permiten extender sin modificar |
 | **L** - Sustitución de Liskov | Las clases pueden intercambiarse si cumplen la interfaz |
 | **I** - Segregación de Interfaces | Repositorios separados por entidad |
-| **D** - Inversión de dependencias | Uso de interfaces en lugar de implementaciones directas |
+| **D** - Inversión de dependencias | Uso de main.interfaces en lugar de implementaciones directas |
 
 ---
 
@@ -75,7 +75,7 @@ SistemaLibreria/
 
 3. Asegurarse de tener Java 17 instalado.
 
-4. Ejecutar desde la clase `Main` (a crear según interfaz gráfica o de consola deseada).
+4. Ejecutar desde la clase `main.Main` (a crear según interfaz gráfica o de consola deseada).
 
 ---
 

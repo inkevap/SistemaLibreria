@@ -1,6 +1,6 @@
-package interfaces;
+package main.interfaces;
 
-import model.User;
+import main.model.User;
 
 import java.util.List;
 import java.util.Optional;

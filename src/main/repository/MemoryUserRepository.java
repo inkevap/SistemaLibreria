@@ -1,9 +1,8 @@
-package repository;
+package main.repository;
 
-import interfaces.IUserRepository;
-import model.User;
-import util.BookUpdater;
-import util.UserUpdater;
+import main.interfaces.IUserRepository;
+import main.model.User;
+import main.util.UserUpdater;
 
 import java.util.ArrayList;
 import java.util.List;

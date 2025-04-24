@@ -1,8 +1,8 @@
-package repository;
+package main.repository;
 
-import interfaces.IBookRepository;
-import model.Book;
-import util.BookUpdater;
+import main.interfaces.IBookRepository;
+import main.model.Book;
+import main.util.BookUpdater;
 
 import java.util.ArrayList;
 import java.util.List;

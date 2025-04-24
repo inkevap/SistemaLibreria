@@ -1,6 +1,6 @@
-package interfaces;
+package main.interfaces;
 
-import model.Book;
+import main.model.Book;
 
 import java.util.List;
 import java.util.Optional;
