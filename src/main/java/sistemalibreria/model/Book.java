@@ -1,4 +1,4 @@
-package main.model;
+package sistemalibreria.model;
 
 public class Book {
  private String isbnCode;

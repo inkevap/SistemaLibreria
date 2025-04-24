@@ -1,8 +1,8 @@
-package main.repository;
+package sistemalibreria.repository;
 
-import main.interfaces.IBookRepository;
-import main.model.Book;
-import main.util.BookUpdater;
+import sistemalibreria.interfaces.IBookRepository;
+import sistemalibreria.model.Book;
+import sistemalibreria.util.BookUpdater;
 
 import java.util.ArrayList;
 import java.util.List;

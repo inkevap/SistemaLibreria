@@ -1,4 +1,4 @@
-package main.util;
+package sistemalibreria.util;
 
 public class Constants {
     public static final String ADMIN_ROLE = "ADMIN";

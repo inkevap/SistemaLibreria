@@ -1,6 +1,6 @@
-package main.model;
+package sistemalibreria.model;
 
-import static main.util.Constants.USER_ROLE;
+import static sistemalibreria.util.Constants.USER_ROLE;
 
 public class User {
     private String userName;

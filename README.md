@@ -31,11 +31,10 @@ SistemaLibreria/
 │       └── java/
 │           └── sistemalibreria/
 │               ├── main.interfaces/         # Contratos para repositorios
-│               ├── main.model/              # Clases Book, User, Loan, etc.
+│               ├── main.sistemalibreria.model/              # Clases Book, User, Loan, etc.
 │               ├── services/           # Lógica de negocio (UserService, BookService, LoanService)
 │               └── utils/              # Métodos auxiliares
 ├── .gitignore
-├── SistemaLibreria.iml
 ├── pom.xml
 └── 2024-Proyecto de Semestre.pdf       # Documento académico original
 ```
