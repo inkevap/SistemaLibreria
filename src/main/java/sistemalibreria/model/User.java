@@ -33,6 +33,19 @@ public class User {
         this.userSerialId = ++userSerialIdCount;
     }
 
+    public User(){
+        this.userName = "";
+        this.userEmail = "";
+        this.userNickName = "";
+        this.userPassword = "";
+        this.userRole = USER_ROLE;
+        this.userAddress = "";
+        this.userPhoneNumber = "";
+        this.userPersonalId = "";
+        this.userStatus = false;
+        this.userSerialId = ++userSerialIdCount;
+    }
+
     public String getUserName() {
         return userName;
     }
