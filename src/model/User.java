@@ -4,26 +4,32 @@ import static util.Constants.USER_ROLE;
 
 public class User {
     private String userName;
+    private String userEmail;
     private String userNickName;
     private String userPassword;
-    private String role;
+    private String userRole;
     private String userAddress;
     private String userPhoneNumber;
     private String userPersonalId;
+    private Boolean userStatus;
     private final int userSerialId;
     private static int userSerialIdCount = 1;
 
-    public User(String userName, String userNickName,
+    public User(String userName,
+                String userEmail,
+                String userNickName,
                 String userPassword,
                 String userAddress, String userPhoneNumber,
                 String userPersonalId) {
         this.userName = userName;
+        this.userEmail = userEmail;
         this.userNickName = userNickName;
         this.userPassword = userPassword;
-        this.role = USER_ROLE;
+        this.userRole = USER_ROLE;
         this.userAddress = userAddress;
         this.userPhoneNumber = userPhoneNumber;
         this.userPersonalId = userPersonalId;
+        this.userStatus = true;
         this.userSerialId = ++userSerialIdCount;
     }
 
@@ -51,12 +57,12 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public String getRole() {
-        return role;
+    public String getUserRole() {
+        return userRole;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setUserRole(String role) {
+        this.userRole = role;
     }
 
     public String getUserAddress() {
@@ -85,5 +91,21 @@ public class User {
 
     public int getUserSerialId() {
         return userSerialId;
+    }
+
+    public Boolean getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Boolean userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

@@ -11,36 +11,33 @@ public interface IUserRepository {
 
     public Optional<User> findUserById(int serialId);
 
-    public Optional<User> findUserByText(String text);
+    public List<User> findUsersByText(String text);
 
     public void removeUser(int serialId);
 
     public void updateUser(User user);
 
-    /* Nuevas funciones
-    List<User> findAllUsers(); // Ideal para paginación futura
+    public List<User> findAllUsers(); // Ideal para paginación futura
 
-    List<User> findUsersByRole(String role);
+    public List<User> findUsersByRole(String role);
 
-    Optional<User> findUserByEmail(String email);
+    public Optional<User> findUserByEmail(String email);
 
-    boolean existsById(int id);
+    public boolean existsById(int  serialId);
 
-    boolean existsByEmail(String email);
+    public boolean existsByEmail(String email);
 
-    void deactivateUser(int id);
+    public void deactivateUser(int serialId);
 
-    void activateUser(int id);
+    public void activateUser(int  serialId);
 
-    long countUsers();
+    public long countUsers();
 
-    List<User> searchUsers(String keyword);
+    public void updateUserPassword(int  serialId, String newPassword);
 
-    void updateUserPassword(int id, String newPassword);
+    public void updateUserEmail(int  serialId, String newEmail);
 
-    void updateUserEmail(int id, String newEmail);
+    public int getLastInsertedUserId();
 
-    int getLastInsertedUserId();
-    */
 
 }
