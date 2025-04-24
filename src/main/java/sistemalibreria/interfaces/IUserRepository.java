@@ -39,5 +39,4 @@ public interface IUserRepository {
 
     public int getLastInsertedUserId();
 
-
 }
