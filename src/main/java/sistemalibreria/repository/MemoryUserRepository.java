@@ -1,8 +1,8 @@
-package main.repository;
+package sistemalibreria.repository;
 
-import main.interfaces.IUserRepository;
-import main.model.User;
-import main.util.UserUpdater;
+import sistemalibreria.interfaces.IUserRepository;
+import sistemalibreria.model.User;
+import sistemalibreria.util.UserUpdater;
 
 import java.util.ArrayList;
 import java.util.List;

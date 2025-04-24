@@ -1,6 +1,6 @@
-package main.util;
+package sistemalibreria.util;
 
-import main.model.User;
+import sistemalibreria.model.User;
 
 public class UserUpdater {
 

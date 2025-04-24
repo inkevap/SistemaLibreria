@@ -1,7 +1,6 @@
-package main.interfaces;
+package sistemalibreria.interfaces;
 
-import main.model.Book;
-
+import sistemalibreria.model.Book;
 import java.util.List;
 import java.util.Optional;
 

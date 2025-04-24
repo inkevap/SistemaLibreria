@@ -1,6 +1,6 @@
-package main.util;
+package sistemalibreria.util;
 
-import main.model.Book;
+import sistemalibreria.model.Book;
 
 public class BookUpdater {
 
