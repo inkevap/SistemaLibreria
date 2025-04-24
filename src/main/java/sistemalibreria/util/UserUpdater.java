@@ -4,40 +4,40 @@ import sistemalibreria.model.User;
 
 public class UserUpdater {
 
-    public static void updateUser(User outdatedUser, User updatedUser){
+    public static void updateUser(User outdatedUser, User updatedUser) {
 
-        if (!updatedUser.getUserName().isBlank()){
+        if (!updatedUser.getUserName().isBlank()) {
             outdatedUser.setUserName(updatedUser.getUserName());
         }
 
-        if (!updatedUser.getUserEmail().isBlank()){
+        if (!updatedUser.getUserEmail().isBlank()) {
             outdatedUser.setUserEmail(updatedUser.getUserEmail());
         }
 
-        if (!updatedUser.getUserNickName().isBlank()){
+        if (!updatedUser.getUserNickName().isBlank()) {
             outdatedUser.setUserNickName(updatedUser.getUserNickName());
         }
-        if (!updatedUser.getUserPassword().isBlank()){
+        if (!updatedUser.getUserPassword().isBlank()) {
             outdatedUser.setUserPassword(updatedUser.getUserPassword());
         }
 
-        if (!updatedUser.getUserRole().isBlank()){
+        if (!updatedUser.getUserRole().isBlank()) {
             outdatedUser.setUserRole(updatedUser.getUserRole());
         }
 
-        if (!updatedUser.getUserAddress().isBlank()){
+        if (!updatedUser.getUserAddress().isBlank()) {
             outdatedUser.setUserAddress(updatedUser.getUserAddress());
         }
 
-        if (!updatedUser.getUserPhoneNumber().isBlank()){
+        if (!updatedUser.getUserPhoneNumber().isBlank()) {
             outdatedUser.setUserPhoneNumber(updatedUser.getUserPhoneNumber());
         }
 
-        if (!updatedUser.getUserPersonalId().isBlank()){
+        if (!updatedUser.getUserPersonalId().isBlank()) {
             outdatedUser.setUserPersonalId(updatedUser.getUserPersonalId());
         }
 
-        if (updatedUser.getUserStatus() != outdatedUser.getUserStatus()){
+        if (updatedUser.getUserStatus() != outdatedUser.getUserStatus()) {
             outdatedUser.setUserStatus(updatedUser.getUserStatus());
         }
 

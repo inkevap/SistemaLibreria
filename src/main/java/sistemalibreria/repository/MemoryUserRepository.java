@@ -21,22 +21,11 @@ public class MemoryUserRepository implements IUserRepository {
     }
 
     public Optional<User> findUserById(int serialId) {
-        return users.stream().filter(
-                        actualUser ->
-                                actualUser.getUserSerialId() == serialId)
-                .findFirst();
+        return users.stream().filter(actualUser -> actualUser.getUserSerialId() == serialId).findFirst();
     }
 
     public List<User> findUsersByText(String text) {
-        return users.stream().filter(
-                        actualUser ->
-                                actualUser.getUserPersonalId().equals(text) ||
-                                        actualUser.getUserAddress().equals(text) ||
-                                        actualUser.getUserPhoneNumber().equals(text) ||
-                                        actualUser.getUserSerialId() == Integer.parseInt(text) ||
-                                        actualUser.getUserName().equals(text)
-                )
-                .collect(Collectors.toList());
+        return users.stream().filter(actualUser -> actualUser.getUserPersonalId().equals(text) || actualUser.getUserAddress().equals(text) || actualUser.getUserPhoneNumber().equals(text) || actualUser.getUserSerialId() == Integer.parseInt(text) || actualUser.getUserName().equals(text)).collect(Collectors.toList());
     }
 
     public void removeUser(int serialId) {
@@ -55,69 +44,50 @@ public class MemoryUserRepository implements IUserRepository {
         return users;
     }
 
-    public List<User> findUsersByRole(String role){
-        return users.stream().filter(
-                        actualUser ->
-                                actualUser.getUserRole().equals(role)
-                )
-                .collect(Collectors.toList());
+    public List<User> findUsersByRole(String role) {
+        return users.stream().filter(actualUser -> actualUser.getUserRole().equals(role)).collect(Collectors.toList());
     }
 
-    public Optional<User> findUserByEmail(String email){
-        return users.stream().filter(
-                        actualUser ->
-                                actualUser.getUserEmail().equalsIgnoreCase(email)
-                )
-                .findFirst();
+    public Optional<User> findUserByEmail(String email) {
+        return users.stream().filter(actualUser -> actualUser.getUserEmail().equalsIgnoreCase(email)).findFirst();
     }
 
-    public boolean existsById(int  serialId){
-        return users.stream().anyMatch(
-                actualUser ->
-                        actualUser.getUserSerialId() == serialId
-        );
+    public boolean existsById(int serialId) {
+        return users.stream().anyMatch(actualUser -> actualUser.getUserSerialId() == serialId);
     }
 
-    public boolean existsByEmail(String email){
-        return users.stream().anyMatch(
-                actualUser ->
-                        actualUser.getUserEmail().equalsIgnoreCase(email)
-        );
+    public boolean existsByEmail(String email) {
+        return users.stream().anyMatch(actualUser -> actualUser.getUserEmail().equalsIgnoreCase(email));
     }
 
-    public void deactivateUser(int  serialId){
-    if(findUserById(serialId).isPresent()){
-        findUserById(serialId).get().setUserStatus(false);
-    }
+    public void updateUserPassword(int serialId, String newPassword) {
+        findUserById(serialId).ifPresent(user -> user.setUserPassword(newPassword));
     }
 
-    public void activateUser(int  serialId){
-        if(findUserById(serialId).isPresent()){
+    public void updateUserEmail(int serialId, String newEmail) {
+        findUserById(serialId).ifPresent(user -> user.setUserEmail(newEmail));
+    }
+
+    /* metodos que no corresponden a esta clase
+    public int getLastInsertedUserId() {
+        return users.getLast().getUserSerialId();
+    }
+
+
+    public void deactivateUser(int serialId) {
+        if (findUserById(serialId).isPresent()) {
+            findUserById(serialId).get().setUserStatus(false);
+        }
+    }
+
+    public void activateUser(int serialId) {
+        if (findUserById(serialId).isPresent()) {
             findUserById(serialId).get().setUserStatus(true);
         }
     }
 
-    public long countUsers(){
-    return users.size();
+    public long countUsers() {
+        return users.size();
     }
-
-
-
-    public void updateUserPassword(int  serialId, String newPassword){
-        findUserById(serialId).ifPresent(
-                user ->
-                        user.setUserPassword(newPassword)
-        );
-    }
-
-    public void updateUserEmail(int  serialId, String newEmail){
-        findUserById(serialId).ifPresent(
-                user ->
-                        user.setUserEmail(newEmail)
-        );
-    }
-
-    public int getLastInsertedUserId(){
-    return users.getLast().getUserSerialId();
-    }
+    */
 }

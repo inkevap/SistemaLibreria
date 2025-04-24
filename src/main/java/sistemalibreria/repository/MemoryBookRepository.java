@@ -21,22 +21,11 @@ public class MemoryBookRepository implements IBookRepository {
     }
 
     public Optional<Book> findBookByIsbn(String isbn) {
-        return books.stream().filter(
-                        actualBook ->
-                                actualBook.getIsbnCode()
-                                        .equals(isbn))
-                .findFirst();
+        return books.stream().filter(actualBook -> actualBook.getIsbnCode().equals(isbn)).findFirst();
     }
 
     public List<Book> findBookByText(String text) {
-        return books.stream().filter(
-                        actualBook ->
-                                actualBook.getIsbnCode().toLowerCase().contains(text.toLowerCase()) ||
-                                        actualBook.getBookAuthor().toLowerCase().contains(text.toLowerCase()) ||
-                                        actualBook.getBookEditorial().toLowerCase().contains(text.toLowerCase()) ||
-                                        actualBook.getBookTitle().toLowerCase().contains(text.toLowerCase())
-                )
-                .collect(Collectors.toList());
+        return books.stream().filter(actualBook -> actualBook.getIsbnCode().toLowerCase().contains(text.toLowerCase()) || actualBook.getBookAuthor().toLowerCase().contains(text.toLowerCase()) || actualBook.getBookEditorial().toLowerCase().contains(text.toLowerCase()) || actualBook.getBookTitle().toLowerCase().contains(text.toLowerCase())).collect(Collectors.toList());
     }
 
     public void removeBook(String isbn) {
@@ -45,8 +34,8 @@ public class MemoryBookRepository implements IBookRepository {
 
     public void updateBook(Book book) {
         if (findBookByIsbn(book.getIsbnCode()).isPresent()) {
-           int index = books.indexOf(findBookByIsbn(book.getIsbnCode()).get());
-            BookUpdater.updateBook(books.get(index),book); //reemplaza la informacion del objeto sin cambiar referencia
+            int index = books.indexOf(findBookByIsbn(book.getIsbnCode()).get());
+            BookUpdater.updateBook(books.get(index), book); //reemplaza la informacion del objeto sin cambiar referencia
             //books.set(index,book); // reemplaza la referencia
         }
     }
@@ -55,21 +44,15 @@ public class MemoryBookRepository implements IBookRepository {
         return books;
     }
 
-    public boolean existsByIsbn(String isbn){
-        return books.stream().anyMatch(
-                        actualBook ->
-                                actualBook.getIsbnCode().toLowerCase().contains(isbn.toLowerCase())
-                );
+    public boolean existsByIsbn(String isbn) {
+        return books.stream().anyMatch(actualBook -> actualBook.getIsbnCode().toLowerCase().contains(isbn.toLowerCase()));
     }
 
     public List<Book> findBooksByAuthor(String author) {
-        return books.stream().filter(
-                        actualBook -> actualBook.getBookAuthor().toLowerCase().contains(author.toLowerCase())
-                )
-                .collect(Collectors.toList());
+        return books.stream().filter(actualBook -> actualBook.getBookAuthor().toLowerCase().contains(author.toLowerCase())).collect(Collectors.toList());
     }
 
-    public long countBooks(){
+    public long countBooks() {
         return books.size();
     }
 
