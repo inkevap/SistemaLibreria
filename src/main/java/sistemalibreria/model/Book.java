@@ -19,6 +19,15 @@ public class Book {
         this.bookAvailability = bookAvailability;
     }
 
+    public Book(){
+        this.isbnCode = "";
+        this.bookTitle = "";
+        this.bookAuthor = "";
+        this.bookPublishYear = -1;
+        this.bookEditorial = "";
+        this.bookAvailability = -1;
+    }
+
     public String getIsbnCode() {
         return isbnCode;
     }
