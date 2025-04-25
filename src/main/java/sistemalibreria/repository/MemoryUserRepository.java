@@ -13,11 +13,13 @@ public class MemoryUserRepository implements IUserRepository {
     private final List<User> users;
 
     public MemoryUserRepository() {
-        users = new ArrayList<User>();
+        users = new ArrayList<>();
     }
 
     public void addUser(User user) {
-        users.add(user);
+        if(!users.contains(user)) {
+            users.add(user);
+        }
     }
 
     public Optional<User> findUserById(int serialId) {
@@ -25,7 +27,16 @@ public class MemoryUserRepository implements IUserRepository {
     }
 
     public List<User> findUsersByText(String text) {
-        return users.stream().filter(actualUser -> actualUser.getUserPersonalId().equals(text) || actualUser.getUserAddress().equals(text) || actualUser.getUserPhoneNumber().equals(text) || actualUser.getUserSerialId() == Integer.parseInt(text) || actualUser.getUserName().equals(text)).collect(Collectors.toList());
+        String loweredText = text.toLowerCase();
+        return users.stream().filter(actualUser ->
+                actualUser.getUserPersonalId().toLowerCase().contains(loweredText) ||
+                actualUser.getUserAddress().toLowerCase().contains(loweredText) ||
+                actualUser.getUserRole().toLowerCase().contains(loweredText) ||
+                actualUser.getUserEmail().toLowerCase().contains(loweredText) ||
+                actualUser.getUserNickName().toLowerCase().contains(loweredText) ||
+                actualUser.getUserPhoneNumber().toLowerCase().contains(loweredText) ||
+                actualUser.getUserName().toLowerCase().contains(loweredText))
+                .collect(Collectors.toList());
     }
 
     public void removeUser(int serialId) {
@@ -39,6 +50,8 @@ public class MemoryUserRepository implements IUserRepository {
             //user.set(index,user); // reemplaza la referencia
         }
     }
+
+    //TODO Implementar metodo public void updateUser(String text) para que reemplace por otro parametro
 
     public List<User> findAllUsers() {
         return users;

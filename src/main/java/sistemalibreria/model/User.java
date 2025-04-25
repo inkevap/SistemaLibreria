@@ -19,7 +19,8 @@ public class User {
                 String userEmail,
                 String userNickName,
                 String userPassword,
-                String userAddress, String userPhoneNumber,
+                String userAddress,
+                String userPhoneNumber,
                 String userPersonalId) {
         this.userName = userName;
         this.userEmail = userEmail;
@@ -30,7 +31,7 @@ public class User {
         this.userPhoneNumber = userPhoneNumber;
         this.userPersonalId = userPersonalId;
         this.userStatus = true;
-        this.userSerialId = ++userSerialIdCount;
+        this.userSerialId = userSerialIdCount++;
     }
 
     public User(){
