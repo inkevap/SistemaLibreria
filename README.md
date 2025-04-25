@@ -1,106 +1,104 @@
 # 📚 SistemaLibreria
 
-Sistema de gestión para una librería. Proyecto académico en Java que implementa una arquitectura orientada a objetos con énfasis en principios **SOLID**.
-
-> "Diseñado para ser escalable, mantenible y educativo."
+Un sistema de gestión de biblioteca desarrollado en Java, orientado a objetos y siguiendo principios SOLID. Permite manejar libros, usuarios y préstamos de forma modular, con enfoque en mantenibilidad, escalabilidad y calidad de código.
 
 ---
 
-## 🧾 Descripción
+## 🚀 Funcionalidades
 
-Este sistema permite administrar libros, usuarios y préstamos de manera estructurada. Está diseñado para mantener un **bajo acoplamiento** y **alta cohesión**, utilizando main.interfaces, clases modelo, servicios y una posible capa futura de persistencia.
-
----
-
-## 🚀 Funcionalidades principales
-
-- 📘 CRUD de libros
-- 👤 CRUD de usuarios
-- 📕 Gestión de préstamos de libros
-- 💾 Persistencia simulada (por implementar con base de datos o archivo)
-- 🧠 Uso de buenas prácticas de diseño y arquitectura
+- 📘 Registro, edición y eliminación de libros.
+- 👤 Gestión de usuarios (alta, baja, modificación).
+- 🔄 Registro de préstamos y devoluciones.
+- 💾 Simulación de persistencia en memoria.
+- 🧪 Pruebas unitarias con JUnit.
+- 🧱 Arquitectura orientada a servicios e interfaces.
 
 ---
 
-## 🧱 Estructura del proyecto
+## 🧠 Tecnologías y Principios Usados
+
+- **Java 17**
+- **Maven** para gestión de dependencias
+- **JUnit** para pruebas unitarias
+- **Principios SOLID**
+   - S: Single Responsibility
+   - O: Open/Closed
+   - L: Liskov Substitution
+   - I: Interface Segregation
+   - D: Dependency Inversion
+- Estructura en capas: `model`, `interfaces`, `services`, `util`, `test`
+
+---
+
+## 🗂️ Estructura del Proyecto
 
 ```bash
 SistemaLibreria/
 ├── src/
-│   └── main/
-│       └── java/
-│           └── sistemalibreria/
-│               ├── main.interfaces/         # Contratos para repositorios
-│               ├── main.sistemalibreria.model/              # Clases Book, User, Loan, etc.
-│               ├── services/           # Lógica de negocio (UserService, BookService, LoanService)
-│               └── utils/              # Métodos auxiliares
-├── .gitignore
-├── pom.xml
-└── 2024-Proyecto de Semestre.pdf       # Documento académico original
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── sistemalibreria/
+│   │   │   │   ├── model/           # Clases Libro, Usuario, Prestamo
+│   │   │   │   ├── interfaces/      # Repositorios y contratos
+│   │   │   │   ├── services/        # Lógica de negocio
+│   │   │   │   ├── util/            # Utilidades como BookUpdater
+│   ├── test/
+│   │   ├── java/
+│   │   │   ├── sistemalibreria/     # Pruebas unitarias con JUnit
+├── pom.xml                         # Gestión de dependencias con Maven
 ```
 
 ---
 
-## 💡 Principios SOLID aplicados
+## ⚙️ Ejecución del Proyecto
 
-| Principio | Aplicación en el proyecto |
-|----------|-----------------------------|
-| **S** - Responsabilidad única | Clases como `BookService`, `LoanService`, `UserService` están separadas |
-| **O** - Abierto/Cerrado | Interfaces permiten extender sin modificar |
-| **L** - Sustitución de Liskov | Las clases pueden intercambiarse si cumplen la interfaz |
-| **I** - Segregación de Interfaces | Repositorios separados por entidad |
-| **D** - Inversión de dependencias | Uso de main.interfaces en lugar de implementaciones directas |
-
----
-
-## 🛠️ Tecnologías
-
-- ☕ **Java 17**
-- 🧠 **POO**
-- 📦 **Maven**
-- 🧪 Posible integración futura con **JUnit**
-- 🖥️ **IDE recomendado**: IntelliJ IDEA
-
----
-
-## 🧪 Ejecución del proyecto
-
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/inkevap/SistemaLibreria.git
-   ```
-
-2. Abrir el proyecto en IntelliJ IDEA u otro IDE compatible.
-
-3. Asegurarse de tener Java 17 instalado.
-
-4. Ejecutar desde la clase `main.Main` (a crear según interfaz gráfica o de consola deseada).
-
----
-
-## 📄 Documentación
-
-Consulta el documento [`2024-Proyecto de Semestre.pdf`](https://github.com/inkevap/SistemaLibreria/blob/develop/2024-Proyecto%20de%20Semestre.pdf) para más contexto del proyecto académico, motivación y criterios de evaluación.
-
----
-
-## 🤝 Contribuciones
+1. Clona el repositorio:
 
 ```bash
-# Para contribuir:
-1. Haz un fork
-2. Crea una nueva rama: git checkout -b mi-nueva-funcionalidad
-3. Realiza tus cambios y haz commit: git commit -m "Agrega nueva funcionalidad"
-4. Sube tu rama: git push origin mi-nueva-funcionalidad
-5. Abre un Pull Request
+git clone https://github.com/inkevap/SistemaLibreria.git
+```
+
+2. Importa el proyecto como un proyecto **Maven** en tu IDE (IntelliJ, Eclipse, etc).
+
+3. Ejecuta desde la clase `Main.java`.
+
+4. Ejecuta las pruebas con:
+
+```bash
+mvn test
 ```
 
 ---
 
-## 🧾 Licencia
+## ✅ Pruebas
 
-Este proyecto es de carácter académico. Puede modificarse y adaptarse con fines educativos o personales.
+Este proyecto incluye pruebas unitarias en la carpeta `test/`, cubriendo:
+
+- 📗 Actualización de libros (`BookUpdaterTest`)
+- 👤 Lógica de usuarios
+- 🔁 Operaciones de préstamo
+
+Frameworks usados:
+- `JUnit 5`
 
 ---
 
-> Hecho con 💡 por estudiantes de Ingeniería en Sistemas
+## 💡 Futuras Mejoras
+
+- Persistencia real (JDBC, Hibernate o JPA)
+- Interfaz gráfica o web (Swing, JavaFX o Spring MVC)
+- Implementación de patrón DAO
+- Validaciones más robustas
+
+---
+
+## 👨‍💻 Autor
+
+Desarrollado por [inkevap](https://github.com/inkevap) como proyecto de aprendizaje avanzado en Java.
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más información.
+
