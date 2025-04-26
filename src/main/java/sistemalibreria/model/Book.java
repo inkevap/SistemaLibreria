@@ -4,13 +4,16 @@ public class Book {
  private String isbnCode;
  private String bookTitle;
  private String bookAuthor;
- private int bookPublishYear;
+ private String bookPublishYear;
  private String bookEditorial;
  private int bookAvailability;
 
-    public Book(String isbnCode, String bookTitle,
-                String bookAuthor, int bookPublishYear,
-                String bookEditorial, int bookAvailability) {
+    public Book(String bookTitle,
+                String bookAuthor,
+                String bookEditorial,
+                String bookPublishYear,
+                String isbnCode,
+                int bookAvailability) {
         this.isbnCode = isbnCode;
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
@@ -23,7 +26,7 @@ public class Book {
         this.isbnCode = "";
         this.bookTitle = "";
         this.bookAuthor = "";
-        this.bookPublishYear = -1;
+        this.bookPublishYear = "";
         this.bookEditorial = "";
         this.bookAvailability = -1;
     }
@@ -40,7 +43,7 @@ public class Book {
         return bookAuthor;
     }
 
-    public int getBookPublishYear() {
+    public String getBookPublishYear() {
         return bookPublishYear;
     }
 
@@ -64,7 +67,7 @@ public class Book {
         this.bookAuthor = bookAuthor;
     }
 
-    public void setBookPublishYear(int bookPublishYear) {
+    public void setBookPublishYear(String bookPublishYear) {
         this.bookPublishYear = bookPublishYear;
     }
 
