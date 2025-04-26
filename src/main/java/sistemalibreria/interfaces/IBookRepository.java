@@ -10,7 +10,7 @@ public interface IBookRepository {
 
     public Optional<Book> findBookByIsbn(String isbn);
 
-    public List<Book> findBookByText(String text);
+    public List<Book> findBooksByText(String text);
 
     public void removeBook(String isbn);
 
