@@ -17,15 +17,23 @@ public class MemoryBookRepository implements IBookRepository {
     }
 
     public void addBook(Book book) {
-        books.add(book);
+        if(findBookByIsbn(book.getIsbnCode()).isEmpty()) {
+            books.add(book);
+        }
     }
 
     public Optional<Book> findBookByIsbn(String isbn) {
         return books.stream().filter(actualBook -> actualBook.getIsbnCode().equals(isbn)).findFirst();
     }
 
-    public List<Book> findBookByText(String text) {
-        return books.stream().filter(actualBook -> actualBook.getIsbnCode().toLowerCase().contains(text.toLowerCase()) || actualBook.getBookAuthor().toLowerCase().contains(text.toLowerCase()) || actualBook.getBookEditorial().toLowerCase().contains(text.toLowerCase()) || actualBook.getBookTitle().toLowerCase().contains(text.toLowerCase())).collect(Collectors.toList());
+    public List<Book> findBooksByText(String text) {
+        return books.stream().filter(actualBook ->
+                actualBook.getIsbnCode().toLowerCase().contains(text.toLowerCase()) ||
+                        actualBook.getBookAuthor().toLowerCase().contains(text.toLowerCase()) ||
+                        actualBook.getBookEditorial().toLowerCase().contains(text.toLowerCase()) ||
+                        actualBook.getBookTitle().toLowerCase().contains(text.toLowerCase()) ||
+                        actualBook.getBookPublishYear().toLowerCase().contains(text.toLowerCase())
+        ).collect(Collectors.toList());
     }
 
     public void removeBook(String isbn) {
