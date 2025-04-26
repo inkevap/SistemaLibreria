@@ -299,7 +299,7 @@ public class MemoryUserRepositoryTest {
     @DisplayName("Agrega satisfacoriamente los usuarios")
     @Test
     public void addUser_AddUsersSuccesfully() {
-        assertEquals(5,dbUser.findAllUsers().size());
+        assertEquals(23,dbUser.findAllUsers().size());
         assertTrue(dbUser.findAllUsers().contains(camirod));
         assertTrue(dbUser.findAllUsers().contains(danmeji));
         assertTrue(dbUser.findAllUsers().contains(oscpare));
@@ -307,21 +307,21 @@ public class MemoryUserRepositoryTest {
         assertTrue(dbUser.findAllUsers().contains(oscpare));
     }
 
-    @DisplayName("Agrega satisfacoriamente los usuarios")
+    @DisplayName("Evita que se agreguen usuarios duplicados")
     @Test
     public void addUser_WhenItsADuplicateValue() {
         dbUser.addUser(usuario01);
         assertEquals(1, dbUser.findUsersByText("ID-001").size());
     }
 
-    @DisplayName("Agrega satisfacoriamente los usuarios")
+    @DisplayName("Encuentra usuarios basados en su SerialId")
     @Test
     public void findUserById_BringsTheRightObject() {
         var userLookingfor = dbUser.findAllUsers().get(1);
         var userFound = dbUser.findUserById(userLookingfor.getUserSerialId());
         assertTrue(userFound.isPresent());
         assertEquals(userLookingfor.getUserName(),userFound.get().getUserName());
-        userFound = dbUser.findUserById(154);
+        userFound = dbUser.findUserById(999999999);
         assertFalse(userFound.isPresent());
     }
 
@@ -392,16 +392,156 @@ public class MemoryUserRepositoryTest {
     assertEquals(22, dbUser.findAllUsers().size());
     }
 
-    @DisplayName("Actualiza un objeto existente")
+    @DisplayName("Actualiza un usuario basado en su SerialId")
     @Test
-    public void updateUser_UpdatesUserWhenExists(){
-        var results = dbUser.findUsersByText("alejandro.castro@example.com");
-        if(!results.isEmpty()) {
-            if(results.size() == 1){
-                var newUser = results.getFirst();
-                //TODO pendiente terminar de escribir pruebas unitarias
+    public void updateUser_UpdatesUserWhenExists_UsingSerialID(){
+        var results = dbUser.findUserByEmail("alejandro.castro@example.com"); //se busca un usuario
 
+        if(results.isPresent()){ //si esta presente se reemplazan sus valores
+            results.get().setUserEmail("EmailOfuscado@example.com");
+            results.get().setUserName("Kevin Pocon");
+            results.get().setUserPassword("Passwordcita");
+            results.get().setUserNickName("Inkevap");
+            results.get().setUserAddress("1era calle 6ta ave lote 01-1");
+            results.get().setUserPersonalId("38351010");
+            results.get().setUserPhoneNumber("49063-4960");
+
+            var id = results.get().getUserSerialId(); // se guarda su id para buscar este mismo objeto
+
+            dbUser.updateUser(results.get()); //se actualiza el objeto
+
+            assertTrue(dbUser.existsByEmail("EmailOfuscado@example.com")); //se comprueba que todavia existe el objeto aunque el email haya cambiado
+            assertFalse(dbUser.existsByEmail("alejandro.castro@example.com")); // se comprueba que no exista el antiguo email
+            assertEquals(23,dbUser.findAllUsers().size()); // se comprueba que no se ha aumentado ni disminuido la bdd
+
+            if(dbUser.findUserById(id).isPresent()) { //se verifica que si existe el mismo objeto con el id
+               // se comprueba que se hayan hecho todos los cambios
+                assertEquals("EmailOfuscado@example.com", dbUser.findUserById(id).get().getUserEmail());
+                assertEquals("Kevin Pocon", dbUser.findUserById(id).get().getUserName());
+                assertEquals("Inkevap", dbUser.findUserById(id).get().getUserNickName());
+                assertEquals("Passwordcita", dbUser.findUserById(id).get().getUserPassword());
+                assertEquals("1era calle 6ta ave lote 01-1", dbUser.findUserById(id).get().getUserAddress());
+                assertEquals("49063-4960", dbUser.findUserById(id).get().getUserPhoneNumber());
+                assertEquals("38351010", dbUser.findUserById(id).get().getUserPersonalId());
+            }
+        }else{
+            fail("Usuario no encontrado cuando si existe");
             }
         }
+
+    @DisplayName("Actualiza un usuario basado en su PersonalId")
+    @Test
+    public void updateUser_UpdatesUserWhenExists_UsingPersonalID() {
+        dbUser.updateUser(new User("Kevin Pocon",
+                "Inkev@example.com","Inkevap",
+                "Passwordcita", "1era calle 6ta ave lote 01-1",
+                "49063-4960", "ID-011"));
+
+        assertTrue(dbUser.existsByEmail("Inkev@example.com"));
+        assertEquals(23,dbUser.findAllUsers().size());
+        assertFalse(dbUser.existsByEmail("renata.mendoza@example.com"));
+
+        var userFound = dbUser.findUsersByText("ID-011");
+        assertEquals(1, userFound.size());
+
+        int id = userFound.getFirst().getUserSerialId();
+        if(dbUser.findUserById(id).isPresent()) { //se verifica que si existe el mismo objeto con el id
+            // se comprueba que se hayan hecho todos los cambios
+            assertEquals("Inkev@example.com", dbUser.findUserById(id).get().getUserEmail());
+            assertEquals("Kevin Pocon", dbUser.findUserById(id).get().getUserName());
+            assertEquals("Inkevap", dbUser.findUserById(id).get().getUserNickName());
+            assertEquals("Passwordcita", dbUser.findUserById(id).get().getUserPassword());
+            assertEquals("1era calle 6ta ave lote 01-1", dbUser.findUserById(id).get().getUserAddress());
+            assertEquals("49063-4960", dbUser.findUserById(id).get().getUserPhoneNumber());
+            assertEquals("ID-011", dbUser.findUserById(id).get().getUserPersonalId());
+        }
     }
+
+    @DisplayName("Actualiza un usuario existente por su Email")
+    @Test
+    public void updateUser_UpdatesUserWhenExists_UsingEmail() {
+        var previousUser =  dbUser.findUserByEmail("carlos.fernandez@example.com");
+        if(previousUser.isPresent()){
+            int id = previousUser.get().getUserSerialId();
+            dbUser.updateUser(new User("Kevin Pocon",
+                    "carlos.fernandez@example.com","Inkevap",
+                    "Passwordcita", "1era calle 6ta ave lote 01-1",
+                    "49063-4960", "38351010"));
+            var userFound = dbUser.findUserById(id);
+            if(userFound.isPresent()){
+                assertEquals("carlos.fernandez@example.com", userFound.get().getUserEmail());
+                assertEquals("Kevin Pocon", userFound.get().getUserName());
+                assertEquals("Inkevap", userFound.get().getUserNickName());
+                assertEquals("Passwordcita", userFound.get().getUserPassword());
+                assertEquals("1era calle 6ta ave lote 01-1", userFound.get().getUserAddress());
+                assertEquals("49063-4960", userFound.get().getUserPhoneNumber());
+                assertEquals("38351010", userFound.get().getUserPersonalId());
+            }
+        }
+
+    }
+
+    @DisplayName("No hace cambios cuando no encuentra el usuario")
+    @Test
+    public void updateUser_NotUpdatesUserWhenNotExists() {
+            dbUser.updateUser(new User("Kevin Pocon",
+                    "kevin.@example.com","Inkevap",
+                    "Passwordcita", "1era calle 6ta ave lote 01-1",
+                    "49063-4960", "38351010"));
+        List<User> allUsers = dbUser.findAllUsers();
+        assertEquals(23, allUsers.size());
+    }
+
+
+    @DisplayName("Devuelve una lista de todos los usuarios")
+    @Test
+    public void findAllUsers_ReturnsAListOfAllUsers(){
+        List<User> allUsers = dbUser.findAllUsers();
+        assertEquals(23, allUsers.size());
+    }
+
+    @DisplayName("Devuelve una lista con los usuarios con el rol")
+    @Test
+    public void findUserByRole(){
+        List<User> allUsers = dbUser.findUsersByRole(ADMIN_ROLE);
+        assertEquals(7, allUsers.size());
+
+        allUsers = dbUser.findUsersByRole("No role");
+        assertEquals(0, allUsers.size());
+    }
+
+    @DisplayName("Encuentra un usuario por su Email")
+    @Test
+    public void findUserByEmail(){
+        var user = dbUser.findUserByEmail("hugo.martin@example.com");
+        if(user.isPresent()){
+            assertEquals("ID-016", user.get().getUserPersonalId());
+        }else{
+            fail("El usuario no fue encontrado aunque existe");
+        }
+
+        var user2 = dbUser.findUserByEmail("inkev.ap@example.com");
+        assertFalse(user2.isPresent());
+
+    }
+
+    @DisplayName("Verifica si existe un usuario por su ID")
+    @Test
+    public void existsByID_VerifiesIfTheUserExists(){
+        var user = dbUser.findUserByEmail("hugo.martin@example.com");
+        if(user.isPresent()){
+            dbUser.existsById(user.get().getUserSerialId());
+        }else{
+            fail("Usuario no encontrado cuando si existe");
+        }
+
+    }
+
+    @DisplayName("Verifica si un usuario existe por su email")
+    @Test
+    public void existsByEmail_VerifiesIfTheUserExists(){
+    assertTrue(dbUser.existsByEmail("renata.mendoza@example.com"));
+    assertFalse(dbUser.existsByEmail("inkev.ap@example.com"));
+    }
+
 }

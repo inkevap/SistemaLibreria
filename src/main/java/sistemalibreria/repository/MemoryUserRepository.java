@@ -17,7 +17,7 @@ public class MemoryUserRepository implements IUserRepository {
     }
 
     public void addUser(User user) {
-        if(!users.contains(user)) {
+        if (!users.contains(user)) {
             users.add(user);
         }
     }
@@ -29,13 +29,13 @@ public class MemoryUserRepository implements IUserRepository {
     public List<User> findUsersByText(String text) {
         String loweredText = text.toLowerCase();
         return users.stream().filter(actualUser ->
-                actualUser.getUserPersonalId().toLowerCase().contains(loweredText) ||
-                actualUser.getUserAddress().toLowerCase().contains(loweredText) ||
-                actualUser.getUserRole().toLowerCase().contains(loweredText) ||
-                actualUser.getUserEmail().toLowerCase().contains(loweredText) ||
-                actualUser.getUserNickName().toLowerCase().contains(loweredText) ||
-                actualUser.getUserPhoneNumber().toLowerCase().contains(loweredText) ||
-                actualUser.getUserName().toLowerCase().contains(loweredText))
+                        actualUser.getUserPersonalId().toLowerCase().contains(loweredText) ||
+                                actualUser.getUserAddress().toLowerCase().contains(loweredText) ||
+                                actualUser.getUserRole().toLowerCase().contains(loweredText) ||
+                                actualUser.getUserEmail().toLowerCase().contains(loweredText) ||
+                                actualUser.getUserNickName().toLowerCase().contains(loweredText) ||
+                                actualUser.getUserPhoneNumber().toLowerCase().contains(loweredText) ||
+                                actualUser.getUserName().toLowerCase().contains(loweredText))
                 .collect(Collectors.toList());
     }
 
@@ -47,8 +47,15 @@ public class MemoryUserRepository implements IUserRepository {
         if (findUserById(user.getUserSerialId()).isPresent()) {
             int index = users.indexOf(findUserById(user.getUserSerialId()).get());
             UserUpdater.updateUser(users.get(index), user); //reemplaza la informacion del objeto sin cambiar referencia
-            //user.set(index,user); // reemplaza la referencia
+            //users.set(index,user); // reemplaza la referencia
+        } else if (findUserByEmail(user.getUserEmail()).isPresent()) {
+            int index = users.indexOf(findUserByEmail(user.getUserEmail()).get());
+            UserUpdater.updateUser(users.get(index), user);
+        } else if (!findUsersByText(user.getUserPersonalId()).isEmpty()) {
+            int index = users.indexOf(findUsersByText(user.getUserPersonalId()).getFirst());
+            UserUpdater.updateUser(users.get(index), user);
         }
+
     }
 
     //TODO Implementar metodo public void updateUser(String text) para que reemplace por otro parametro
@@ -73,6 +80,7 @@ public class MemoryUserRepository implements IUserRepository {
         return users.stream().anyMatch(actualUser -> actualUser.getUserEmail().equalsIgnoreCase(email));
     }
 
+    /* metodos que no corresponden a esta clase
     public void updateUserPassword(int serialId, String newPassword) {
         findUserById(serialId).ifPresent(user -> user.setUserPassword(newPassword));
     }
@@ -81,7 +89,7 @@ public class MemoryUserRepository implements IUserRepository {
         findUserById(serialId).ifPresent(user -> user.setUserEmail(newEmail));
     }
 
-    /* metodos que no corresponden a esta clase
+
     public int getLastInsertedUserId() {
         return users.getLast().getUserSerialId();
     }
