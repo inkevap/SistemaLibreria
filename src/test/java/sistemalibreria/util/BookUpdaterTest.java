@@ -15,14 +15,14 @@ public class BookUpdaterTest {
         outdated.setBookAuthor("Autor antiguo");
         outdated.setBookEditorial("Editorial antigua");
         outdated.setBookAvailability(3);
-        outdated.setBookPublishYear(1999);
+        outdated.setBookPublishYear("1999");
 
         Book updated = new Book();
         updated.setBookTitle("Nuevo título");
         updated.setBookAuthor(""); // no válido
         updated.setBookEditorial("Nueva editorial");
         updated.setBookAvailability(-1); // no válido
-        updated.setBookPublishYear(2022);
+        updated.setBookPublishYear("2022");
 
         BookUpdater.updateBook(outdated, updated);
 
@@ -30,6 +30,6 @@ public class BookUpdaterTest {
         assertEquals("Autor antiguo", outdated.getBookAuthor());
         assertEquals("Nueva editorial", outdated.getBookEditorial());
         assertEquals(3, outdated.getBookAvailability());
-        assertEquals(2022, outdated.getBookPublishYear());
+        assertEquals("2022", outdated.getBookPublishYear());
     }
 }

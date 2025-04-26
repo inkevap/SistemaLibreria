@@ -17,7 +17,7 @@ public class BookUpdater {
         if(!updatedBook.getBookTitle().isBlank()) {
             outdatedBook.setBookTitle(updatedBook.getBookTitle());
         }
-        if(updatedBook.getBookPublishYear() != -1) {
+        if(!updatedBook.getBookPublishYear().isBlank()) {
             outdatedBook.setBookPublishYear(updatedBook.getBookPublishYear());
         }
         }

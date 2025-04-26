@@ -1,5 +1,9 @@
 package sistemalibreria.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import static sistemalibreria.util.Constants.GUEST_ROLE;
 import static sistemalibreria.util.Constants.USER_ROLE;
 
 public class User {
@@ -13,7 +17,8 @@ public class User {
     private String userPersonalId;
     private Boolean userStatus;
     private final int userSerialId;
-    private static int userSerialIdCount = 1;
+//    private static final List<Integer> userSerialIdCount = new ArrayList<>(); // mas lento que la implementacion actual
+    private final Set<Integer> userSerialIdCount = new HashSet<>();
 
     public User(String userName,
                 String userEmail,
@@ -31,7 +36,7 @@ public class User {
         this.userPhoneNumber = userPhoneNumber;
         this.userPersonalId = userPersonalId;
         this.userStatus = true;
-        this.userSerialId = userSerialIdCount++;
+        this.userSerialId = generateUniqueId();
     }
 
     public User(){
@@ -39,12 +44,21 @@ public class User {
         this.userEmail = "";
         this.userNickName = "";
         this.userPassword = "";
-        this.userRole = USER_ROLE;
+        this.userRole = GUEST_ROLE;
         this.userAddress = "";
         this.userPhoneNumber = "";
         this.userPersonalId = "";
         this.userStatus = false;
-        this.userSerialId = ++userSerialIdCount;
+        this.userSerialId = generateUniqueId();
+    }
+    private int generateUniqueId(){
+        int serialID;
+        do {
+            serialID = (int) (Math.random() * 1000) + 1;
+        }
+        while (userSerialIdCount.contains(serialID));
+        userSerialIdCount.add(serialID);
+        return serialID;
     }
 
     public String getUserName() {
