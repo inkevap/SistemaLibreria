@@ -1,21 +1,21 @@
 package sistemalibreria.interfaces;
 
-import sistemalibreria.model.User;
+import sistemalibreria.model.UserEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserFinder {
 
-    Optional<User> findUserById(int serialId);
+    Optional<UserEntity> findUserById(int serialId);
 
-    List<User> findUsersByText(String text);
+    List<UserEntity> findUsersByText(String text);
 
-    List<User> findAllUsers(); // Ideal para paginación futura
+    List<UserEntity> findAllUsers(); // Ideal para paginación futura
 
-    List<User> findUsersByRole(String role);
+    List<UserEntity> findUsersByRole(String role);
 
-    Optional<User> findUserByEmail(String email);
+    Optional<UserEntity> findUserByEmail(String email);
 
     boolean existsById(int serialId);
 

@@ -4,39 +4,39 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sistemalibreria.interfaces.IUserRepository;
-import sistemalibreria.model.User;
+import sistemalibreria.model.UserEntity;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static sistemalibreria.util.Constants.*;
 
-public class MemoryUserRepositoryTest {
+public class MemoryUserEntityRepositoryTest {
 
     IUserRepository dbUser = new MemoryUserRepository();
-    User lucmart = new User();
-    User migroja = new User();
-    User oscpare = new User();
-    User camirod = new User();
-    User danmeji = new User();
-    User usuario01 = new User();
-    User usuario02 = new User();
-    User usuario03 = new User();
-    User usuario04 = new User();
-    User usuario05 = new User();
-    User usuario06 = new User();
-    User usuario07 = new User();
-    User usuario08 = new User();
-    User usuario09 = new User();
-    User usuario10 = new User();
-    User usuario11 = new User();
-    User usuario12 = new User();
-    User usuario13 = new User();
-    User usuario14 = new User();
-    User usuario15 = new User();
-    User usuario16 = new User();
-    User usuario17 = new User();
-    User usuario18 = new User();
+    UserEntity lucmart = new UserEntity();
+    UserEntity migroja = new UserEntity();
+    UserEntity oscpare = new UserEntity();
+    UserEntity camirod = new UserEntity();
+    UserEntity danmeji = new UserEntity();
+    UserEntity usuario01 = new UserEntity();
+    UserEntity usuario02 = new UserEntity();
+    UserEntity usuario03 = new UserEntity();
+    UserEntity usuario04 = new UserEntity();
+    UserEntity usuario05 = new UserEntity();
+    UserEntity usuario06 = new UserEntity();
+    UserEntity usuario07 = new UserEntity();
+    UserEntity usuario08 = new UserEntity();
+    UserEntity usuario09 = new UserEntity();
+    UserEntity usuario10 = new UserEntity();
+    UserEntity usuario11 = new UserEntity();
+    UserEntity usuario12 = new UserEntity();
+    UserEntity usuario13 = new UserEntity();
+    UserEntity usuario14 = new UserEntity();
+    UserEntity usuario15 = new UserEntity();
+    UserEntity usuario16 = new UserEntity();
+    UserEntity usuario17 = new UserEntity();
+    UserEntity usuario18 = new UserEntity();
 
     @BeforeEach
     public void SetupDataBase() {
@@ -432,7 +432,7 @@ public class MemoryUserRepositoryTest {
     @DisplayName("Actualiza un usuario basado en su PersonalId")
     @Test
     public void updateUser_UpdatesUserWhenExists_UsingPersonalID() {
-        dbUser.updateUser(new User("Kevin Pocon",
+        dbUser.updateUser(new UserEntity("Kevin Pocon",
                 "Inkev@example.com","Inkevap",
                 "Passwordcita", "1era calle 6ta ave lote 01-1",
                 "49063-4960", "ID-011"));
@@ -463,7 +463,7 @@ public class MemoryUserRepositoryTest {
         var previousUser =  dbUser.findUserByEmail("carlos.fernandez@example.com");
         if(previousUser.isPresent()){
             int id = previousUser.get().getUserSerialId();
-            dbUser.updateUser(new User("Kevin Pocon",
+            dbUser.updateUser(new UserEntity("Kevin Pocon",
                     "carlos.fernandez@example.com","Inkevap",
                     "Passwordcita", "1era calle 6ta ave lote 01-1",
                     "49063-4960", "38351010"));
@@ -484,30 +484,30 @@ public class MemoryUserRepositoryTest {
     @DisplayName("No hace cambios cuando no encuentra el usuario")
     @Test
     public void updateUser_NotUpdatesUserWhenNotExists() {
-            dbUser.updateUser(new User("Kevin Pocon",
+            dbUser.updateUser(new UserEntity("Kevin Pocon",
                     "kevin.@example.com","Inkevap",
                     "Passwordcita", "1era calle 6ta ave lote 01-1",
                     "49063-4960", "38351010"));
-        List<User> allUsers = dbUser.findAllUsers();
-        assertEquals(23, allUsers.size());
+        List<UserEntity> allUserEntities = dbUser.findAllUsers();
+        assertEquals(23, allUserEntities.size());
     }
 
 
     @DisplayName("Devuelve una lista de todos los usuarios")
     @Test
     public void findAllUsers_ReturnsAListOfAllUsers(){
-        List<User> allUsers = dbUser.findAllUsers();
-        assertEquals(23, allUsers.size());
+        List<UserEntity> allUserEntities = dbUser.findAllUsers();
+        assertEquals(23, allUserEntities.size());
     }
 
     @DisplayName("Devuelve una lista con los usuarios con el rol")
     @Test
     public void findUserByRole(){
-        List<User> allUsers = dbUser.findUsersByRole(ADMIN_ROLE);
-        assertEquals(7, allUsers.size());
+        List<UserEntity> allUserEntities = dbUser.findUsersByRole(ADMIN_ROLE);
+        assertEquals(7, allUserEntities.size());
 
-        allUsers = dbUser.findUsersByRole("No role");
-        assertEquals(0, allUsers.size());
+        allUserEntities = dbUser.findUsersByRole("No role");
+        assertEquals(0, allUserEntities.size());
     }
 
     @DisplayName("Encuentra un usuario por su Email")
