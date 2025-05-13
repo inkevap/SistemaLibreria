@@ -1,44 +1,44 @@
 package sistemalibreria.util;
 
-import sistemalibreria.model.User;
+import sistemalibreria.model.UserEntity;
 
 public class UserUpdater {
 
-    public static void updateUser(User outdatedUser, User updatedUser) {
+    public static void updateUser(UserEntity outdatedUserEntity, UserEntity updatedUserEntity) {
 
-        if (!updatedUser.getUserName().isBlank()) {
-            outdatedUser.setUserName(updatedUser.getUserName());
+        if (!updatedUserEntity.getUserName().isBlank()) {
+            outdatedUserEntity.setUserName(updatedUserEntity.getUserName());
         }
 
-        if (!updatedUser.getUserEmail().isBlank()) {
-            outdatedUser.setUserEmail(updatedUser.getUserEmail());
+        if (!updatedUserEntity.getUserEmail().isBlank()) {
+            outdatedUserEntity.setUserEmail(updatedUserEntity.getUserEmail());
         }
 
-        if (!updatedUser.getUserNickName().isBlank()) {
-            outdatedUser.setUserNickName(updatedUser.getUserNickName());
+        if (!updatedUserEntity.getUserNickName().isBlank()) {
+            outdatedUserEntity.setUserNickName(updatedUserEntity.getUserNickName());
         }
-        if (!updatedUser.getUserPassword().isBlank()) {
-            outdatedUser.setUserPassword(updatedUser.getUserPassword());
-        }
-
-        if (!updatedUser.getUserRole().isBlank()) {
-            outdatedUser.setUserRole(updatedUser.getUserRole());
+        if (!updatedUserEntity.getUserPassword().isBlank()) {
+            outdatedUserEntity.setUserPassword(updatedUserEntity.getUserPassword());
         }
 
-        if (!updatedUser.getUserAddress().isBlank()) {
-            outdatedUser.setUserAddress(updatedUser.getUserAddress());
+        if (!updatedUserEntity.getUserRole().isBlank()) {
+            outdatedUserEntity.setUserRole(updatedUserEntity.getUserRole());
         }
 
-        if (!updatedUser.getUserPhoneNumber().isBlank()) {
-            outdatedUser.setUserPhoneNumber(updatedUser.getUserPhoneNumber());
+        if (!updatedUserEntity.getUserAddress().isBlank()) {
+            outdatedUserEntity.setUserAddress(updatedUserEntity.getUserAddress());
         }
 
-        if (!updatedUser.getUserPersonalId().isBlank()) {
-            outdatedUser.setUserPersonalId(updatedUser.getUserPersonalId());
+        if (!updatedUserEntity.getUserPhoneNumber().isBlank()) {
+            outdatedUserEntity.setUserPhoneNumber(updatedUserEntity.getUserPhoneNumber());
         }
 
-        if (updatedUser.getUserStatus() != outdatedUser.getUserStatus()) {
-            outdatedUser.setUserStatus(updatedUser.getUserStatus());
+        if (!updatedUserEntity.getUserPersonalId().isBlank()) {
+            outdatedUserEntity.setUserPersonalId(updatedUserEntity.getUserPersonalId());
+        }
+
+        if (updatedUserEntity.getUserStatus() != outdatedUserEntity.getUserStatus()) {
+            outdatedUserEntity.setUserStatus(updatedUserEntity.getUserStatus());
         }
 
 

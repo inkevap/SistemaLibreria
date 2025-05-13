@@ -1,7 +1,7 @@
 package sistemalibreria.repository;
 
 import sistemalibreria.interfaces.IUserRepository;
-import sistemalibreria.model.User;
+import sistemalibreria.model.UserEntity;
 import sistemalibreria.util.UserUpdater;
 
 import java.util.ArrayList;
@@ -10,25 +10,25 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class MemoryUserRepository implements IUserRepository {
-    private final List<User> users;
+    private final List<UserEntity> userEntities;
 
     public MemoryUserRepository() {
-        users = new ArrayList<>();
+        userEntities = new ArrayList<>();
     }
 
-    public void addUser(User user) {
-        if (!users.contains(user)) {
-            users.add(user);
+    public void addUser(UserEntity userEntity) {
+        if (!userEntities.contains(userEntity)) {
+            userEntities.add(userEntity);
         }
     }
 
-    public Optional<User> findUserById(int serialId) {
-        return users.stream().filter(actualUser -> actualUser.getUserSerialId() == serialId).findFirst();
+    public Optional<UserEntity> findUserById(int serialId) {
+        return userEntities.stream().filter(actualUser -> actualUser.getUserSerialId() == serialId).findFirst();
     }
 
-    public List<User> findUsersByText(String text) {
+    public List<UserEntity> findUsersByText(String text) {
         String loweredText = text.toLowerCase();
-        return users.stream().filter(actualUser ->
+        return userEntities.stream().filter(actualUser ->
                         actualUser.getUserPersonalId().toLowerCase().contains(loweredText) ||
                                 actualUser.getUserAddress().toLowerCase().contains(loweredText) ||
                                 actualUser.getUserRole().toLowerCase().contains(loweredText) ||
@@ -40,44 +40,44 @@ public class MemoryUserRepository implements IUserRepository {
     }
 
     public void removeUser(int serialId) {
-        findUserById(serialId).ifPresent(users::remove);
+        findUserById(serialId).ifPresent(userEntities::remove);
     }
 
-    public void updateUser(User user) {
-        if (findUserById(user.getUserSerialId()).isPresent()) {
-            int index = users.indexOf(findUserById(user.getUserSerialId()).get());
-            UserUpdater.updateUser(users.get(index), user); //reemplaza la informacion del objeto sin cambiar referencia
-            //users.set(index,user); // reemplaza la referencia
-        } else if (findUserByEmail(user.getUserEmail()).isPresent()) {
-            int index = users.indexOf(findUserByEmail(user.getUserEmail()).get());
-            UserUpdater.updateUser(users.get(index), user);
-        } else if (!findUsersByText(user.getUserPersonalId()).isEmpty()) {
-            int index = users.indexOf(findUsersByText(user.getUserPersonalId()).getFirst());
-            UserUpdater.updateUser(users.get(index), user);
+    public void updateUser(UserEntity userEntity) {
+        if (findUserById(userEntity.getUserSerialId()).isPresent()) {
+            int index = userEntities.indexOf(findUserById(userEntity.getUserSerialId()).get());
+            UserUpdater.updateUser(userEntities.get(index), userEntity); //reemplaza la informacion del objeto sin cambiar referencia
+            //userEntities.set(index,userEntity); // reemplaza la referencia
+        } else if (findUserByEmail(userEntity.getUserEmail()).isPresent()) {
+            int index = userEntities.indexOf(findUserByEmail(userEntity.getUserEmail()).get());
+            UserUpdater.updateUser(userEntities.get(index), userEntity);
+        } else if (!findUsersByText(userEntity.getUserPersonalId()).isEmpty()) {
+            int index = userEntities.indexOf(findUsersByText(userEntity.getUserPersonalId()).getFirst());
+            UserUpdater.updateUser(userEntities.get(index), userEntity);
         }
 
     }
 
     //TODO Implementar metodo public void updateUser(String text) para que reemplace por otro parametro
 
-    public List<User> findAllUsers() {
-        return users;
+    public List<UserEntity> findAllUsers() {
+        return userEntities;
     }
 
-    public List<User> findUsersByRole(String role) {
-        return users.stream().filter(actualUser -> actualUser.getUserRole().equals(role)).collect(Collectors.toList());
+    public List<UserEntity> findUsersByRole(String role) {
+        return userEntities.stream().filter(actualUser -> actualUser.getUserRole().equals(role)).collect(Collectors.toList());
     }
 
-    public Optional<User> findUserByEmail(String email) {
-        return users.stream().filter(actualUser -> actualUser.getUserEmail().equalsIgnoreCase(email)).findFirst();
+    public Optional<UserEntity> findUserByEmail(String email) {
+        return userEntities.stream().filter(actualUser -> actualUser.getUserEmail().equalsIgnoreCase(email)).findFirst();
     }
 
     public boolean existsById(int serialId) {
-        return users.stream().anyMatch(actualUser -> actualUser.getUserSerialId() == serialId);
+        return userEntities.stream().anyMatch(actualUser -> actualUser.getUserSerialId() == serialId);
     }
 
     public boolean existsByEmail(String email) {
-        return users.stream().anyMatch(actualUser -> actualUser.getUserEmail().equalsIgnoreCase(email));
+        return userEntities.stream().anyMatch(actualUser -> actualUser.getUserEmail().equalsIgnoreCase(email));
     }
 
     /* metodos que no corresponden a esta clase
@@ -91,7 +91,7 @@ public class MemoryUserRepository implements IUserRepository {
 
 
     public int getLastInsertedUserId() {
-        return users.getLast().getUserSerialId();
+        return userEntities.getLast().getUserSerialId();
     }
 
 
@@ -108,7 +108,7 @@ public class MemoryUserRepository implements IUserRepository {
     }
 
     public long countUsers() {
-        return users.size();
+        return userEntities.size();
     }
     */
 }
