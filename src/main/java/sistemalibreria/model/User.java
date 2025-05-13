@@ -58,6 +58,8 @@ public class User {
     }
 
 
+
+
     public String getUserName() {
         return userName;
     }
@@ -96,5 +98,21 @@ public class User {
 
     public String getUserEmail() {
         return userEmail;
+    }
+
+    @Override
+    public String toString() {
+        return "Nuevo Usuario { \n" +
+                "Nombre Completo: '" + userName + '\'' +
+                ", Correo Electronico: '" + userEmail + '\'' +
+                ",\n Nombre de Usuario: '" + userNickName + '\'' +
+                ", Contraseña: '" + userPassword + '\'' +
+                ",\n Rol de usuario: '" + userRole + '\'' +
+                ", Direccion: '" + userAddress + '\'' +
+                ",\n Numero de Telefono: '" + userPhoneNumber + '\'' +
+                ", Identifiacion Personal: '" + userPersonalId + '\'' +
+                ",\n Estado del usuario: " + (userStatus ? "Activo": "Desactivado") +
+                ", Codigo Serial Unico: " + userSerialId +
+                " }";
     }
 }
