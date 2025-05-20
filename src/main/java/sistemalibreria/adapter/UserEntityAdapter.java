@@ -5,7 +5,7 @@ import sistemalibreria.model.UserEntity;
 
 public class UserEntityAdapter {
 
-    public static User userEntityToUser(UserEntity userEntity){
+    public static User entityToUser(UserEntity userEntity){
           return new User(
                   userEntity.getUserName(),
                   userEntity.getUserEmail(),
@@ -18,7 +18,7 @@ public class UserEntityAdapter {
           );
     }
 
-    public static UserEntity userToUserEntity(User user){
+    public static UserEntity userToEntity(User user){
         return new UserEntity(
                 user.getUserName(),
                 user.getUserEmail(),

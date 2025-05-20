@@ -7,15 +7,14 @@ import sistemalibreria.model.UserEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static sistemalibreria.adapter.UserEntityAdapter.userEntityToUser;
-import static sistemalibreria.adapter.UserEntityAdapter.userToUserEntity;
-import static sistemalibreria.util.Constants.ADMIN_ROLE;
+import static sistemalibreria.adapter.UserEntityAdapter.entityToUser;
+import static sistemalibreria.adapter.UserEntityAdapter.userToEntity;
 
 public class UserEntityAdapterTest {
 
     @DisplayName("verifica si convierte satisfactoriamente User a UserEntity")
     @Test
-    public void UserToUserEntity_ReturnsUserEntityWithTheSameInfo(){
+    public void UserToUserEntity_ReturnsEntityWithTheSameInfo(){
 
         User userToConvert = new User(
                 "Miguel Rojas",
@@ -27,7 +26,7 @@ public class UserEntityAdapterTest {
                 "ID-101"
         );
 
-        UserEntity userConverted= userToUserEntity(userToConvert);
+        UserEntity userConverted= userToEntity(userToConvert);
         assertEquals("Miguel Rojas",userConverted.getUserName());
         assertEquals("migroja@example.com",userConverted.getUserEmail());
         assertEquals("migroja",userConverted.getUserNickName());
@@ -51,7 +50,7 @@ public class UserEntityAdapterTest {
                 "ID-101"
         );
 
-        User userConverted= userEntityToUser(userToConvert);
+        User userConverted= entityToUser(userToConvert);
         assertEquals("Miguel Rojas",userConverted.getUserName());
         assertEquals("migroja@example.com",userConverted.getUserEmail());
         assertEquals("migroja",userConverted.getUserNickName());
