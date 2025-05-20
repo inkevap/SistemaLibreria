@@ -1,5 +1,7 @@
 package sistemalibreria.model;
 
+import sistemalibreria.util.BCryptUtils;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,7 +32,7 @@ public class UserEntity {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userNickName = userNickName;
-        this.userPassword = userPassword;
+        this.userPassword = BCryptUtils.hashPassword(userPassword);
         this.userRole = USER_ROLE;
         this.userAddress = userAddress;
         this.userPhoneNumber = userPhoneNumber;
@@ -82,7 +84,7 @@ public class UserEntity {
     }
 
     public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+        this.userPassword = BCryptUtils.hashPassword(userPassword);
     }
 
     public String getUserRole() {
