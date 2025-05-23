@@ -1,104 +1,84 @@
+```markdown
 # 📚 SistemaLibreria
 
-Un sistema de gestión de biblioteca desarrollado en Java, orientado a objetos y siguiendo principios SOLID. Permite manejar libros, usuarios y préstamos de forma modular, con enfoque en mantenibilidad, escalabilidad y calidad de código.
+Un sistema modular de gestión de biblioteca desarrollado en Java con un enfoque orientado a objetos, principios SOLID y arquitectura por capas. Diseñado para ser mantenible, extensible y fácil de probar.
 
 ---
 
-## 🚀 Funcionalidades
+## 🚀 Funcionalidades actuales
 
 - 📘 Registro, edición y eliminación de libros.
 - 👤 Gestión de usuarios (alta, baja, modificación).
+- 🔐 Verificación de credenciales con hash seguro (BCrypt).
 - 🔄 Registro de préstamos y devoluciones.
-- 💾 Simulación de persistencia en memoria.
-- 🧪 Pruebas unitarias con JUnit.
-- 🧱 Arquitectura orientada a servicios e interfaces.
+- 💾 Simulación de persistencia en memoria (`MemoryUserRepository`, `MemoryBookRepository`).
+- 🧪 Pruebas unitarias con JUnit para repositorios y utilidades.
+- 🧱 Separación en capas: `model`, `service`, `repository`, `DTO`, `adapter`, `interfaces`.
 
 ---
 
-## 🧠 Tecnologías y Principios Usados
+## 🔧 Tecnologías y herramientas
 
-- **Java 17**
-- **Maven** para gestión de dependencias
-- **JUnit** para pruebas unitarias
-- **Principios SOLID**
-   - S: Single Responsibility
-   - O: Open/Closed
-   - L: Liskov Substitution
-   - I: Interface Segregation
-   - D: Dependency Inversion
-- Estructura en capas: `model`, `interfaces`, `services`, `util`, `test`
+- Java 17+
+- JUnit 5
+- BCrypt (para hashing de contraseñas)
+- Maven (gestión de dependencias)
+- IDE: IntelliJ IDEA
 
 ---
 
-## 🗂️ Estructura del Proyecto
+## 🛣️ Mejoras en curso / futuras implementaciones
 
-```bash
+- ✅ **Inyección de dependencias vía `AppConfig`**
+  - Eliminar instanciación directa en `Main`.
+  - Facilitar pruebas e intercambio de implementaciones (por ejemplo, pasar de memoria a base de datos).
+
+- 🌐 **Soporte multilenguaje (internacionalización)**
+  - Código en inglés.
+  - Interfaz en español (usando `ResourceBundle` con `messages_es.properties`).
+
+- 🧩 Mejora de pruebas
+  - Añadir pruebas unitarias para servicios y controladores de CLI.
+  - Simular entradas de usuario y flujos completos.
+
+- 🧽 Limpieza de dependencias
+  - Reemplazo de dependencias a clases concretas por interfaces (`BCryptUtils`, adaptadores, etc.)
+
+- 🗂️ Refactorización general
+  - Renombrar clases como `CommandLineInterfazSystem` a nombres consistentes en inglés.
+  - Separar lógica de presentación de la lógica de negocio más claramente.
+
+---
+
+## 🏗️ Estructura del proyecto
+
+`
 SistemaLibreria/
 ├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   ├── sistemalibreria/
-│   │   │   │   ├── model/           # Clases Libro, Usuario, Prestamo
-│   │   │   │   ├── interfaces/      # Repositorios y contratos
-│   │   │   │   ├── services/        # Lógica de negocio
-│   │   │   │   ├── util/            # Utilidades como BookUpdater
-│   ├── test/
-│   │   ├── java/
-│   │   │   ├── sistemalibreria/     # Pruebas unitarias con JUnit
-├── pom.xml                         # Gestión de dependencias con Maven
-```
+│   ├── main/java/sistemalibreria/
+│   │   ├── model/             # Clases de dominio (User, Book, etc.)
+│   │   ├── repository/        # Repositorios en memoria
+│   │   ├── service/           # Lógica de negocio
+│   │   ├── util/              # Funciones auxiliares
+│   │   ├── interfaces/        # Contratos (interfaces)
+│   │   ├── adapter/           # Adaptadores entre modelos
+│   │   ├── DTO/               # Data Transfer Objects
+│   │   └── Main.java          # Punto de entrada
+│   └── test/java/...          # Pruebas unitarias
+├── pom.xml                    # Configuración de Maven
+└── README.md
+`
 
 ---
 
-## ⚙️ Ejecución del Proyecto
+## 🧠 Autores y contribución
 
-1. Clona el repositorio:
-
-```bash
-git clone https://github.com/inkevap/SistemaLibreria.git
-```
-
-2. Importa el proyecto como un proyecto **Maven** en tu IDE (IntelliJ, Eclipse, etc).
-
-3. Ejecuta desde la clase `Main.java`.
-
-4. Ejecuta las pruebas con:
-
-```bash
-mvn test
-```
-
----
-
-## ✅ Pruebas
-
-Este proyecto incluye pruebas unitarias en la carpeta `test/`, cubriendo:
-
-- 📗 Actualización de libros (`BookUpdaterTest`)
-- 👤 Lógica de usuarios
-- 🔁 Operaciones de préstamo
-
-Frameworks usados:
-- `JUnit 5`
-
----
-
-## 💡 Futuras Mejoras
-
-- Persistencia real (JDBC, Hibernate o JPA)
-- Interfaz gráfica o web (Swing, JavaFX o Spring MVC)
-- Implementación de patrón DAO
-- Validaciones más robustas
-
----
-
-## 👨‍💻 Autor
-
-Desarrollado por [inkevap](https://github.com/inkevap) como proyecto de aprendizaje avanzado en Java.
+Este proyecto fue desarrollado como parte de un proyecto académico, con enfoque en buenas prácticas de desarrollo de software.  
+Las contribuciones están abiertas para quienes deseen extender o profesionalizar el sistema.
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más información.
-
+MIT 
+```

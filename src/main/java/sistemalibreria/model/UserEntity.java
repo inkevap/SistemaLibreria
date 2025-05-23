@@ -1,6 +1,8 @@
 package sistemalibreria.model;
 
-import sistemalibreria.util.BCryptUtils;
+import sistemalibreria.config.AppConfig;
+import sistemalibreria.interfaces.IPasswordEncryptor;
+import sistemalibreria.util.BCryptEncryptor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +23,8 @@ public class UserEntity {
     private final int userSerialId;
 //    private static final List<Integer> userSerialIdCount = new ArrayList<>(); // mas lento que la implementacion actual
     private final Set<Integer> userSerialIdCount = new HashSet<>();
+    private final IPasswordEncryptor passwordEncryptor = AppConfig.passwordEncryptor();
+
 
     public UserEntity(String userName,
                       String userEmail,
@@ -32,7 +36,7 @@ public class UserEntity {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userNickName = userNickName;
-        this.userPassword = BCryptUtils.hashPassword(userPassword);
+        this.userPassword = passwordEncryptor.hashPassword(userPassword);
         this.userRole = USER_ROLE;
         this.userAddress = userAddress;
         this.userPhoneNumber = userPhoneNumber;
@@ -84,7 +88,7 @@ public class UserEntity {
     }
 
     public void setUserPassword(String userPassword) {
-        this.userPassword = BCryptUtils.hashPassword(userPassword);
+        this.userPassword = passwordEncryptor.hashPassword(userPassword);
     }
 
     public String getUserRole() {

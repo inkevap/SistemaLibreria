@@ -1,5 +1,5 @@
 package sistemalibreria.interfaces;
 
-public interface IUserRepository extends UserFinder, UserWriter {
+public interface IUserRepository extends IUserFinder, IUserWriter {
 
 }
