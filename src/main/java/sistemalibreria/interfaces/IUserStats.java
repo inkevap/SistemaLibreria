@@ -1,6 +1,6 @@
 package sistemalibreria.interfaces;
 
-public interface UserStats {
+public interface IUserStats {
 
     long countUsers();
 

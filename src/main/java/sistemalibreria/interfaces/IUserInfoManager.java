@@ -1,6 +1,6 @@
 package sistemalibreria.interfaces;
 
-public interface UserInfoManager {
+public interface IUserInfoManager {
 
     void deactivateUser(int serialId);
 

@@ -2,7 +2,7 @@ package sistemalibreria.interfaces;
 
 import sistemalibreria.model.UserEntity;
 
-public interface UserWriter {
+public interface IUserWriter {
 
     void addUser(UserEntity userEntity);
 

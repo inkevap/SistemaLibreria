@@ -1,8 +1,9 @@
 package sistemalibreria;
 
-import sistemalibreria.model.User;
-
-import java.util.Scanner;
+import sistemalibreria.config.AppConfig;
+import sistemalibreria.interfaces.IUserRepository;
+import sistemalibreria.repository.MemoryUserRepository;
+import sistemalibreria.service.RegularUserManagementService;
 
 import static sistemalibreria.service.CommandLineInterfazSystem.innitCLI;
 
@@ -11,9 +12,12 @@ import static sistemalibreria.service.CommandLineInterfazSystem.innitCLI;
 public class Main {
 
 
-
     public static void main(String[] args) {
-    innitCLI();
+        IUserRepository dataBaseUsers = AppConfig.userRepository();
+
+        RegularUserManagementService userManagementService = new RegularUserManagementService(dataBaseUsers);
+
+        innitCLI();
     }
 
 }

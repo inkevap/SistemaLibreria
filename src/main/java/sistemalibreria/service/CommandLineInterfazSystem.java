@@ -6,6 +6,12 @@ import static sistemalibreria.util.RequestUserInfo.*;
 
 public class CommandLineInterfazSystem {
 
+    private RegularUserManagementService userManagementService;
+
+    CommandLineInterfazSystem(RegularUserManagementService userManagementService){
+        this.userManagementService = userManagementService;
+    }
+
     public static void innitCLI() {
         mainMenu();
     }
@@ -61,7 +67,6 @@ public class CommandLineInterfazSystem {
             System.out.print("Ingresa tu numero de telefono: ");
             String newUserInfo_PhoneNumber = askForString(2, 20);
             System.out.print("Ingresa tu identificacion personal: ");
-            ;
             String newUserInfo_PersonalId = askForString(2, 20);
             System.out.print("Ingresa tu correo electronico: ");
             String newUserInfo_Email = askForString(2, 20);
