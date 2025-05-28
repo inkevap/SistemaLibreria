@@ -1,17 +1,11 @@
 package sistemalibreria.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import static sistemalibreria.util.Constants.GUEST_ROLE;
-import static sistemalibreria.util.Constants.USER_ROLE;
-
 public class User {
     private final String userName;
     private final String userEmail;
     private final String userNickName;
     private final String userPassword;
-    private final String userRole;
+    private final UserRole userRole;
     private final String userAddress;
     private final String userPhoneNumber;
     private final String userPersonalId;
@@ -25,17 +19,19 @@ public class User {
                 String userPassword,
                 String userAddress,
                 String userPhoneNumber,
+                UserRole role,
+                boolean userStatus,
                 String userPersonalId,
                 int userSerialId) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userNickName = userNickName;
         this.userPassword = userPassword;
-        this.userRole = USER_ROLE;
+        this.userRole = role;
         this.userAddress = userAddress;
         this.userPhoneNumber = userPhoneNumber;
         this.userPersonalId = userPersonalId;
-        this.userStatus = true;
+        this.userStatus = userStatus;
         this.userSerialId = userSerialId;
     }
 
@@ -50,7 +46,7 @@ public class User {
         this.userEmail = userEmail;
         this.userNickName = userNickName;
         this.userPassword = userPassword;
-        this.userRole = USER_ROLE;
+        this.userRole = UserRole.USER;
         this.userAddress = userAddress;
         this.userPhoneNumber = userPhoneNumber;
         this.userPersonalId = userPersonalId;
@@ -72,7 +68,7 @@ public class User {
         return userPassword;
     }
 
-    public String getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
@@ -102,17 +98,17 @@ public class User {
 
     @Override
     public String toString() {
-        return "Nuevo Usuario { \n" +
+        return "Nuevo Usuario {" +
                 "Nombre Completo: '" + userName + '\'' +
-                ", Correo Electronico: '" + userEmail + '\'' +
+                ",\n Correo Electronico: '" + userEmail + '\'' +
                 ",\n Nombre de Usuario: '" + userNickName + '\'' +
-                ", Contraseña: '" + userPassword + '\'' +
+                ",\n Contraseña: '" + userPassword + '\'' +
                 ",\n Rol de usuario: '" + userRole + '\'' +
-                ", Direccion: '" + userAddress + '\'' +
+                ",\n Direccion: '" + userAddress + '\'' +
                 ",\n Numero de Telefono: '" + userPhoneNumber + '\'' +
-                ", Identifiacion Personal: '" + userPersonalId + '\'' +
+                ",\n Identifiacion Personal: '" + userPersonalId + '\'' +
                 ",\n Estado del usuario: " + (userStatus ? "Activo": "Desactivado") +
-                ", Codigo Serial Unico: " + userSerialId +
+                ",\n Codigo Serial Unico: " + userSerialId +
                 " }";
     }
 }

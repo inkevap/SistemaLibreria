@@ -1,6 +1,7 @@
 package sistemalibreria.interfaces;
 
 import sistemalibreria.model.UserEntity;
+import sistemalibreria.model.UserRole;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public interface IUserFinder {
 
     List<UserEntity> findAllUsers(); // Ideal para paginación futura
 
-    List<UserEntity> findUsersByRole(String role);
+    List<UserEntity> findUsersByRole(UserRole role);
 
     Optional<UserEntity> findUserByEmail(String email);
 

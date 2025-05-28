@@ -3,9 +3,9 @@ package sistemalibreria.util;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sistemalibreria.model.UserEntity;
+import sistemalibreria.model.UserRole;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static sistemalibreria.util.Constants.ADMIN_ROLE;
 import static sistemalibreria.util.UserUpdater.updateUser;
 
 public class UserEntityUpdaterTest {
@@ -19,7 +19,7 @@ public class UserEntityUpdaterTest {
         userEntityOld.setUserName("Kevin Pocon");
         userEntityOld.setUserPassword("Password");
         userEntityOld.setUserPersonalId("383512345");
-        userEntityOld.setUserRole(ADMIN_ROLE);
+        userEntityOld.setUserRole(UserRole.ADMIN);
         userEntityOld.setUserNickName("Inkevap");
         userEntityOld.setUserPhoneNumber("49606353");
 
@@ -30,7 +30,7 @@ public class UserEntityUpdaterTest {
         userEntityNew.setUserName("Brian Pocon");
         userEntityNew.setUserPassword("Password");
         userEntityNew.setUserPersonalId("");
-        userEntityNew.setUserRole("");
+        userEntityNew.setUserRole(UserRole.NULL);
         userEntityNew.setUserNickName("Liebbergott");
         userEntityNew.setUserPhoneNumber("49606353");
 
@@ -40,9 +40,9 @@ public class UserEntityUpdaterTest {
         assertEquals("3era calle", userEntityOld.getUserAddress());
         assertEquals("Inkev.ap@gmail.com", userEntityOld.getUserEmail());
         assertEquals("Brian Pocon", userEntityOld.getUserName());
-        assertEquals("Password", userEntityOld.getUserPassword());
+        assertTrue(new BCryptEncryptor().checkPassword("Password",userEntityOld.getUserPassword()));
         assertEquals("383512345", userEntityOld.getUserPersonalId());
-        assertEquals(ADMIN_ROLE, userEntityOld.getUserRole());
+        assertEquals(UserRole.NULL, userEntityOld.getUserRole());
         assertEquals("Liebbergott", userEntityOld.getUserNickName());
         assertEquals("49606353", userEntityOld.getUserPhoneNumber());
 

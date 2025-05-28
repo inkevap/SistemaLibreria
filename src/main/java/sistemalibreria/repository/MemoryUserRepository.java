@@ -1,7 +1,9 @@
 package sistemalibreria.repository;
 
 import sistemalibreria.interfaces.IUserRepository;
+import sistemalibreria.model.User;
 import sistemalibreria.model.UserEntity;
+import sistemalibreria.model.UserRole;
 import sistemalibreria.util.UserUpdater;
 
 import java.util.ArrayList;
@@ -14,6 +16,18 @@ public class MemoryUserRepository implements IUserRepository {
 
     public MemoryUserRepository() {
         userEntities = new ArrayList<>();
+        UserEntity adminUser = new UserEntity(
+                "Kevin Pocon",
+                "inkev.ap@gmail.com",
+                "inkevap",
+                "inkev1.618",
+                "Home Address",
+                "49606353",
+                "3815 3015 3015"
+        );
+        adminUser.setUserRole(UserRole.ADMIN);
+        System.out.println(adminUser.getUserRole().getDescripcion());
+        userEntities.add(adminUser);
     }
 
     public void addUser(UserEntity userEntity) {
@@ -31,7 +45,7 @@ public class MemoryUserRepository implements IUserRepository {
         return userEntities.stream().filter(actualUser ->
                         actualUser.getUserPersonalId().toLowerCase().contains(loweredText) ||
                                 actualUser.getUserAddress().toLowerCase().contains(loweredText) ||
-                                actualUser.getUserRole().toLowerCase().contains(loweredText) ||
+                                actualUser.getUserRole().getDescripcion().toLowerCase().contains(loweredText) ||
                                 actualUser.getUserEmail().toLowerCase().contains(loweredText) ||
                                 actualUser.getUserNickName().toLowerCase().contains(loweredText) ||
                                 actualUser.getUserPhoneNumber().toLowerCase().contains(loweredText) ||
@@ -64,8 +78,8 @@ public class MemoryUserRepository implements IUserRepository {
         return userEntities;
     }
 
-    public List<UserEntity> findUsersByRole(String role) {
-        return userEntities.stream().filter(actualUser -> actualUser.getUserRole().equals(role)).collect(Collectors.toList());
+    public List<UserEntity> findUsersByRole(UserRole role) {
+        return userEntities.stream().filter(actualUser -> actualUser.getUserRole().getDescripcion().equals(role.getDescripcion())).collect(Collectors.toList());
     }
 
     public Optional<UserEntity> findUserByEmail(String email) {

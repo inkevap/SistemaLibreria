@@ -2,7 +2,6 @@ package sistemalibreria.service;
 
 import sistemalibreria.DTO.UserCredentialsDTO;
 import sistemalibreria.adapter.UserEntityAdapter;
-import sistemalibreria.config.AppConfig;
 import sistemalibreria.interfaces.IAuthenticationService;
 import sistemalibreria.interfaces.IPasswordEncryptor;
 import sistemalibreria.interfaces.IUserRepository;
@@ -39,9 +38,11 @@ public class DefaultAuthenticationService implements IAuthenticationService {
         }
     }
 
-    public void registerNewUser(User newUser) {
+    public boolean registerNewUser(User newUser) {
         UserEntity newUserEntity = UserEntityAdapter.userToEntity(newUser);
         userDataBase.addUser(newUserEntity);
+        return userDataBase.existsById(newUserEntity.getUserSerialId());
+
     }
 
 }

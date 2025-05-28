@@ -13,6 +13,8 @@ public class UserEntityAdapter {
                   userEntity.getUserPassword(),
                   userEntity.getUserAddress(),
                   userEntity.getUserPhoneNumber(),
+                  userEntity.getUserRole(),
+                  userEntity.getUserStatus(),
                   userEntity.getUserPersonalId(),
                   userEntity.getUserSerialId()
           );
@@ -26,7 +28,10 @@ public class UserEntityAdapter {
                 user.getUserPassword(),
                 user.getUserAddress(),
                 user.getUserPhoneNumber(),
-                user.getUserPersonalId()
+                user.getUserRole(),
+                user.getUserStatus(),
+                user.getUserPersonalId(),
+                user.getUserSerialId()
         );
     }
 }

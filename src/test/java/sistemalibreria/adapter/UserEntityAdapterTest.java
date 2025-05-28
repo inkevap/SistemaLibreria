@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sistemalibreria.model.User;
 import sistemalibreria.model.UserEntity;
+import sistemalibreria.util.BCryptEncryptor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,7 +31,7 @@ public class UserEntityAdapterTest {
         assertEquals("Miguel Rojas",userConverted.getUserName());
         assertEquals("migroja@example.com",userConverted.getUserEmail());
         assertEquals("migroja",userConverted.getUserNickName());
-        assertEquals("Password123!",userConverted.getUserPassword());
+        assertTrue(new BCryptEncryptor().checkPassword("Password123!",userConverted.getUserPassword()));
         assertEquals("Calle 2 Zona 1, Ciudad Ejemplo",userConverted.getUserAddress());
         assertEquals("3991-7166",userConverted.getUserPhoneNumber());
         assertEquals("ID-101",userConverted.getUserPersonalId());
@@ -54,7 +55,7 @@ public class UserEntityAdapterTest {
         assertEquals("Miguel Rojas",userConverted.getUserName());
         assertEquals("migroja@example.com",userConverted.getUserEmail());
         assertEquals("migroja",userConverted.getUserNickName());
-        assertEquals("Password123!",userConverted.getUserPassword());
+        assertTrue(new BCryptEncryptor().checkPassword("Password123!",userConverted.getUserPassword()));
         assertEquals("Calle 2 Zona 1, Ciudad Ejemplo",userConverted.getUserAddress());
         assertEquals("3991-7166",userConverted.getUserPhoneNumber());
         assertEquals("ID-101",userConverted.getUserPersonalId());

@@ -5,9 +5,6 @@ import sistemalibreria.interfaces.IPasswordEncryptor;
 
 public class BCryptEncryptor implements IPasswordEncryptor {
 
-    public BCryptEncryptor(){
-
-    }
 
     // Hash de una contraseña en texto plano
     public String hashPassword(String plainTextPassword) {
