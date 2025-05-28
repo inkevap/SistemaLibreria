@@ -5,11 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sistemalibreria.interfaces.IUserRepository;
 import sistemalibreria.model.UserEntity;
+import sistemalibreria.model.UserRole;
+import sistemalibreria.util.BCryptEncryptor;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static sistemalibreria.util.Constants.*;
 
 public class MemoryUserEntityRepositoryTest {
 
@@ -47,7 +48,7 @@ public class MemoryUserEntityRepositoryTest {
         lucmart.setUserName("Lucía Martínez"); // Nombre y apellido
         lucmart.setUserPassword("Password123!"); //Contraseña ficticia
         lucmart.setUserPersonalId("ID-100"); // ID personal ficticio
-        lucmart.setUserRole(GUEST_ROLE);  // Rol del usuario
+        lucmart.setUserRole(UserRole.GUEST);  // Rol del usuario
         lucmart.setUserNickName("lucmart"); //Nickname ficticio
         lucmart.setUserPhoneNumber("5676-3526"); // Numero de telefono
 
@@ -57,7 +58,7 @@ public class MemoryUserEntityRepositoryTest {
         migroja.setUserName("Miguel Rojas");
         migroja.setUserPassword("Password123!");
         migroja.setUserPersonalId("ID-101");
-        migroja.setUserRole(ADMIN_ROLE);
+        migroja.setUserRole(UserRole.ADMIN);
         migroja.setUserNickName("migroja");
         migroja.setUserPhoneNumber("3991-7166");
 
@@ -67,7 +68,7 @@ public class MemoryUserEntityRepositoryTest {
         oscpare.setUserName("Óscar Paredes"); // Nombre y apellido
         oscpare.setUserPassword("Password123!"); //Contraseña ficticia
         oscpare.setUserPersonalId("ID-117"); // ID personal ficticio
-        oscpare.setUserRole(ADMIN_ROLE);  // Rol del usuario
+        oscpare.setUserRole(UserRole.ADMIN);  // Rol del usuario
         oscpare.setUserNickName("oscpare"); //Nickname ficticio
         oscpare.setUserPhoneNumber("7871-4002"); // Numero de telefono
 
@@ -77,7 +78,7 @@ public class MemoryUserEntityRepositoryTest {
         camirod.setUserName("Camila Rodríguez"); // Nombre y apellido
         camirod.setUserPassword("Password123!"); //Contraseña ficticia
         camirod.setUserPersonalId("ID-118"); // ID personal ficticio
-        camirod.setUserRole(USER_ROLE);  // Rol del usuario
+        camirod.setUserRole(UserRole.USER);  // Rol del usuario
         camirod.setUserNickName("camirod"); //Nickname ficticio
         camirod.setUserPhoneNumber("6028-1934"); // Numero de telefono
 
@@ -87,7 +88,7 @@ public class MemoryUserEntityRepositoryTest {
         danmeji.setUserName("Daniel Mejía"); // Nombre y apellido
         danmeji.setUserPassword("Password123!"); //Contraseña ficticia
         danmeji.setUserPersonalId("ID-119"); // ID personal ficticio
-        danmeji.setUserRole(GUEST_ROLE);  // Rol del usuario
+        danmeji.setUserRole(UserRole.GUEST);  // Rol del usuario
         danmeji.setUserNickName("danmeji"); //Nickname ficticio
         danmeji.setUserPhoneNumber("4590-8157"); // Numero de telefono
 
@@ -97,7 +98,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario01.setUserName("Lucía Martínez");
         usuario01.setUserPassword("Password");
         usuario01.setUserPersonalId("ID-001");
-        usuario01.setUserRole(USER_ROLE);
+        usuario01.setUserRole(UserRole.USER);
         usuario01.setUserNickName("lucimtz");
         usuario01.setUserPhoneNumber("4521-8793");
 
@@ -107,7 +108,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario02.setUserName("Miguel Rojas");
         usuario02.setUserPassword("Password");
         usuario02.setUserPersonalId("ID-002");
-        usuario02.setUserRole(ADMIN_ROLE);
+        usuario02.setUserRole(UserRole.ADMIN);
         usuario02.setUserNickName("mikeRJ");
         usuario02.setUserPhoneNumber("3124-5678");
 
@@ -117,7 +118,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario03.setUserName("Ana Pérez");
         usuario03.setUserPassword("Password");
         usuario03.setUserPersonalId("ID-003");
-        usuario03.setUserRole(USER_ROLE);
+        usuario03.setUserRole(UserRole.USER);
         usuario03.setUserNickName("ana_92");
         usuario03.setUserPhoneNumber("2345-9832");
 
@@ -127,7 +128,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario04.setUserName("Diego Salas");
         usuario04.setUserPassword("Password");
         usuario04.setUserPersonalId("ID-004");
-        usuario04.setUserRole(GUEST_ROLE);
+        usuario04.setUserRole(UserRole.GUEST);
         usuario04.setUserNickName("dsalasx");
         usuario04.setUserPhoneNumber("4210-3312");
 
@@ -137,7 +138,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario05.setUserName("María López");
         usuario05.setUserPassword("Password");
         usuario05.setUserPersonalId("ID-005");
-        usuario05.setUserRole(USER_ROLE);
+        usuario05.setUserRole(UserRole.USER);
         usuario05.setUserNickName("mlopez25");
         usuario05.setUserPhoneNumber("3098-4456");
 
@@ -147,7 +148,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario06.setUserName("Carlos Fernández");
         usuario06.setUserPassword("Password");
         usuario06.setUserPersonalId("ID-006");
-        usuario06.setUserRole(ADMIN_ROLE);
+        usuario06.setUserRole(UserRole.ADMIN);
         usuario06.setUserNickName("cfer88");
         usuario06.setUserPhoneNumber("3890-1283");
 
@@ -157,7 +158,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario07.setUserName("Sofía García");
         usuario07.setUserPassword("Password");
         usuario07.setUserPersonalId("ID-007");
-        usuario07.setUserRole(USER_ROLE);
+        usuario07.setUserRole(UserRole.USER);
         usuario07.setUserNickName("sofi_g");
         usuario07.setUserPhoneNumber("2389-7645");
 
@@ -167,7 +168,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario08.setUserName("Andrés Vargas");
         usuario08.setUserPassword("Password");
         usuario08.setUserPersonalId("ID-008");
-        usuario08.setUserRole(GUEST_ROLE);
+        usuario08.setUserRole(UserRole.GUEST);
         usuario08.setUserNickName("avargas");
         usuario08.setUserPhoneNumber("2145-8763");
 
@@ -177,7 +178,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario09.setUserName("Laura Ramírez");
         usuario09.setUserPassword("Password");
         usuario09.setUserPersonalId("ID-009");
-        usuario09.setUserRole(USER_ROLE);
+        usuario09.setUserRole(UserRole.USER);
         usuario09.setUserNickName("laura_rx");
         usuario09.setUserPhoneNumber("3180-6432");
 
@@ -187,7 +188,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario10.setUserName("Julio Reyes");
         usuario10.setUserPassword("Password");
         usuario10.setUserPersonalId("ID-010");
-        usuario10.setUserRole(ADMIN_ROLE);
+        usuario10.setUserRole(UserRole.ADMIN);
         usuario10.setUserNickName("jreyes555");
         usuario10.setUserPhoneNumber("4093-2170");
 
@@ -197,7 +198,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario11.setUserName("Renata Mendoza");
         usuario11.setUserPassword("Password");
         usuario11.setUserPersonalId("ID-011");
-        usuario11.setUserRole(USER_ROLE);
+        usuario11.setUserRole(UserRole.USER);
         usuario11.setUserNickName("renmendz");
         usuario11.setUserPhoneNumber("3928-1065");
 
@@ -207,7 +208,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario12.setUserName("Marco Díaz");
         usuario12.setUserPassword("Password");
         usuario12.setUserPersonalId("ID-012");
-        usuario12.setUserRole(GUEST_ROLE);
+        usuario12.setUserRole(UserRole.GUEST);
         usuario12.setUserNickName("marcodiaz");
         usuario12.setUserPhoneNumber("3980-4450");
 
@@ -217,7 +218,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario13.setUserName("Pamela Soto");
         usuario13.setUserPassword("Password");
         usuario13.setUserPersonalId("ID-013");
-        usuario13.setUserRole(USER_ROLE);
+        usuario13.setUserRole(UserRole.USER);
         usuario13.setUserNickName("pamesoto");
         usuario13.setUserPhoneNumber("3267-7856");
 
@@ -227,7 +228,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario14.setUserName("Alejandro Castro");
         usuario14.setUserPassword("Password");
         usuario14.setUserPersonalId("ID-014");
-        usuario14.setUserRole(ADMIN_ROLE);
+        usuario14.setUserRole(UserRole.ADMIN);
         usuario14.setUserNickName("acastro");
         usuario14.setUserPhoneNumber("2139-6750");
 
@@ -237,7 +238,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario15.setUserName("Emilia Vera");
         usuario15.setUserPassword("Password");
         usuario15.setUserPersonalId("ID-015");
-        usuario15.setUserRole(USER_ROLE);
+        usuario15.setUserRole(UserRole.USER);
         usuario15.setUserNickName("emivera");
         usuario15.setUserPhoneNumber("3745-8102");
 
@@ -247,7 +248,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario16.setUserName("Hugo Martín");
         usuario16.setUserPassword("Password");
         usuario16.setUserPersonalId("ID-016");
-        usuario16.setUserRole(GUEST_ROLE);
+        usuario16.setUserRole(UserRole.GUEST);
         usuario16.setUserNickName("hugom");
         usuario16.setUserPhoneNumber("2319-4457");
 
@@ -257,7 +258,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario17.setUserName("Valeria Santos");
         usuario17.setUserPassword("Password");
         usuario17.setUserPersonalId("ID-017");
-        usuario17.setUserRole(USER_ROLE);
+        usuario17.setUserRole(UserRole.USER);
         usuario17.setUserNickName("val_san");
         usuario17.setUserPhoneNumber("4275-3380");
 
@@ -267,7 +268,7 @@ public class MemoryUserEntityRepositoryTest {
         usuario18.setUserName("Óscar Paredes");
         usuario18.setUserPassword("Password");
         usuario18.setUserPersonalId("ID-018");
-        usuario18.setUserRole(ADMIN_ROLE);
+        usuario18.setUserRole(UserRole.ADMIN);
         usuario18.setUserNickName("oskarp");
         usuario18.setUserPhoneNumber("4099-2022");
 
@@ -358,7 +359,7 @@ public class MemoryUserEntityRepositoryTest {
         }
 
         //Por Role
-        usersFound = dbUser.findUsersByText(ADMIN_ROLE);
+        usersFound = dbUser.findUsersByText(UserRole.ADMIN.getDescripcion());
         if(!usersFound.isEmpty()){
             assertEquals(7, usersFound.size());
         }else {
@@ -419,7 +420,7 @@ public class MemoryUserEntityRepositoryTest {
                 assertEquals("EmailOfuscado@example.com", dbUser.findUserById(id).get().getUserEmail());
                 assertEquals("Kevin Pocon", dbUser.findUserById(id).get().getUserName());
                 assertEquals("Inkevap", dbUser.findUserById(id).get().getUserNickName());
-                assertEquals("Passwordcita", dbUser.findUserById(id).get().getUserPassword());
+                assertTrue(new BCryptEncryptor().checkPassword("Passwordcita",dbUser.findUserById(id).get().getUserPassword()));
                 assertEquals("1era calle 6ta ave lote 01-1", dbUser.findUserById(id).get().getUserAddress());
                 assertEquals("49063-4960", dbUser.findUserById(id).get().getUserPhoneNumber());
                 assertEquals("38351010", dbUser.findUserById(id).get().getUserPersonalId());
@@ -450,7 +451,7 @@ public class MemoryUserEntityRepositoryTest {
             assertEquals("Inkev@example.com", dbUser.findUserById(id).get().getUserEmail());
             assertEquals("Kevin Pocon", dbUser.findUserById(id).get().getUserName());
             assertEquals("Inkevap", dbUser.findUserById(id).get().getUserNickName());
-            assertEquals("Passwordcita", dbUser.findUserById(id).get().getUserPassword());
+            assertTrue(new BCryptEncryptor().checkPassword("Passwordcita",dbUser.findUserById(id).get().getUserPassword()));
             assertEquals("1era calle 6ta ave lote 01-1", dbUser.findUserById(id).get().getUserAddress());
             assertEquals("49063-4960", dbUser.findUserById(id).get().getUserPhoneNumber());
             assertEquals("ID-011", dbUser.findUserById(id).get().getUserPersonalId());
@@ -472,7 +473,7 @@ public class MemoryUserEntityRepositoryTest {
                 assertEquals("carlos.fernandez@example.com", userFound.get().getUserEmail());
                 assertEquals("Kevin Pocon", userFound.get().getUserName());
                 assertEquals("Inkevap", userFound.get().getUserNickName());
-                assertEquals("Passwordcita", userFound.get().getUserPassword());
+                assertTrue(new BCryptEncryptor().checkPassword("Passwordcita",userFound.get().getUserPassword()));
                 assertEquals("1era calle 6ta ave lote 01-1", userFound.get().getUserAddress());
                 assertEquals("49063-4960", userFound.get().getUserPhoneNumber());
                 assertEquals("38351010", userFound.get().getUserPersonalId());
@@ -503,10 +504,10 @@ public class MemoryUserEntityRepositoryTest {
     @DisplayName("Devuelve una lista con los usuarios con el rol")
     @Test
     public void findUserByRole(){
-        List<UserEntity> allUserEntities = dbUser.findUsersByRole(ADMIN_ROLE);
+        List<UserEntity> allUserEntities = dbUser.findUsersByRole(UserRole.ADMIN);
         assertEquals(7, allUserEntities.size());
 
-        allUserEntities = dbUser.findUsersByRole("No role");
+        allUserEntities = dbUser.findUsersByRole(UserRole.NULL);
         assertEquals(0, allUserEntities.size());
     }
 

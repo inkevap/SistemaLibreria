@@ -1,22 +1,33 @@
 package sistemalibreria.service;
 
+import sistemalibreria.DTO.UserCredentialsDTO;
+import sistemalibreria.interfaces.IAdminUserService;
+import sistemalibreria.interfaces.IAuthenticationService;
+import sistemalibreria.interfaces.IUserService;
 import sistemalibreria.model.User;
 
 import static sistemalibreria.util.RequestUserInfo.*;
 
 public class CommandLineInterfazSystem {
 
-    private RegularUserManagementService userManagementService;
+    private final IUserService userManagementService;
+    private final IAdminUserService adminUserManagementService;
+    private final IAuthenticationService authService;
+    private User userCurrentlyLogedIn;
 
-    CommandLineInterfazSystem(RegularUserManagementService userManagementService){
+    public CommandLineInterfazSystem(IUserService userManagementService, IAdminUserService adminUserManagementService,
+                                     IAuthenticationService authService
+    ) {
         this.userManagementService = userManagementService;
+        this.adminUserManagementService = adminUserManagementService;
+        this.authService = authService;
     }
 
-    public static void innitCLI() {
+    public void innitCLI() {
         mainMenu();
     }
 
-    private static void mainMenu() {
+    private void mainMenu() {
         int option;
         do {
             System.out.print("""
@@ -43,8 +54,9 @@ public class CommandLineInterfazSystem {
         } while (option != 3);
     }
 
-    private static void signIn() {
+    private void signIn() {
         boolean isNewUserInfoCorrect = false;
+        boolean isUserAdded = false;
         User tempUser;
         do {
             System.out.print("""
@@ -53,7 +65,6 @@ public class CommandLineInterfazSystem {
                     para poder crear su cuenta.
                     
                     Por favor ingrese su informacion:
-                    
                     """);
             System.out.println("--------------------------------------------");
             System.out.print("Ingresa tu nombre: ");
@@ -75,52 +86,85 @@ public class CommandLineInterfazSystem {
                     newUserInfo_NickName, newUserInfo_Password,
                     newUserInfo_Address, newUserInfo_PhoneNumber,
                     newUserInfo_PersonalId);
+            System.out.println("--------------------------------------------");
             System.out.println(tempUser.toString());
+            System.out.println("--------------------------------------------");
             //Todo agregar usuario a la base de datos
             System.out.print("Es tu informacion correcta? Si/No ");
             isNewUserInfoCorrect = askForBoolean();
         } while (!isNewUserInfoCorrect);
-        System.out.printf("""
-                --------------------------------------------
-                Bienvenido %s es un gusto tenerte aca.
-                A continuacion puedes iniciar sesion con tu nuevo usuario
-                
-                %n""", tempUser.getUserName());
+
+        if (authService.registerNewUser(tempUser)) {
+            System.out.printf("""
+                    --------------------------------------------
+                    Bienvenido %s es un gusto tenerte aca.
+                    A continuacion puedes iniciar sesion con tu nuevo usuario
+                    %n""", tempUser.getUserName());
+        } else {
+            System.out.printf("""
+                    --------------------------------------------
+                    Se ha encontrado un error y el usuario %s no se agrego.
+                    A continuacion puedes intentar registrarte de nuevo.
+                    %n""", tempUser.getUserName());
+        }
 
         mainMenu();
     }
 
-    private static void login() {
-        String user;
+    private void login() {
         boolean isUserValidated = false;
+        int attempt = 0;
         do {
             System.out.println("--------------------------------------------");
             System.out.print("Ingresa tu nombre de usuario: ");
-            user = askForString(5, 13);
+            String user = askForString(5, 13);
             System.out.print("Ingresa tu contraseña: ");
             String password = askForString(5, 15);
-            //TODO validar usuario
-            isUserValidated = true;
-        } while (!isUserValidated);
+            var validatingUser = authService.validateUser(new UserCredentialsDTO(user, password));
+            if (validatingUser.isPresent()) {
+                isUserValidated = true;
+                userCurrentlyLogedIn = validatingUser.get();
+            } else {
+                attempt++;
+                System.out.println("--------------------------------------------");
+                System.out.println("Tu usuario o contraseña es incorrecto.");
+                System.out.println("Tienes " + (3 - attempt) + " de 3 intentos.");
+            }
 
-        switch (user) {
-            case "administrator" -> menuAdmin();
-            case "regular" -> menuUser();
-            default -> {
-                System.out.print("""
+            if(attempt >= 3){
+                System.out.println("--------------------------------------------");
+                System.out.println("Tus intentos se han acabado, \nseras regresado al menu principal.");
+            }
+
+        } while (!isUserValidated && attempt < 3);
+
+
+        if (isUserValidated) {
+            System.out.printf("""
+                    --------------------------------------------
+                    Bienvenido %s es un gusto tenerte aca.
+                    A continuacion tienes las opciones de %s.
+                    %n""", userCurrentlyLogedIn.getUserName(), userCurrentlyLogedIn.getUserRole().getDescripcion());
+            switch (userCurrentlyLogedIn.getUserRole()) {
+                case ADMIN -> menuAdmin();
+                case USER -> menuUser();
+                default -> System.out.print("""
                         --------------------------------------------
                         
                         Usuario Guest, accede con un usuario admin o
                         user.
                         
                         """);
-                login();
+
+
             }
+        } else {
+            mainMenu();
         }
 
     }
 
-    private static void menuUser() {
+    private void menuUser() {
         int option;
         do {
             System.out.print("""
@@ -152,7 +196,7 @@ public class CommandLineInterfazSystem {
 
     }
 
-    private static void borrowBook() {
+    private void borrowBook() {
         int option;
         do {
             System.out.print("""
@@ -179,7 +223,7 @@ public class CommandLineInterfazSystem {
         } while (option != 4);
     }
 
-    private static void updateUserInfo() {
+    private void updateUserInfo() {
         int option;
         do {
             System.out.print("""
@@ -212,17 +256,17 @@ public class CommandLineInterfazSystem {
         } while (option != 7);
     }
 
-    private static void showBorrowedBooksHistory() {
+    private void showBorrowedBooksHistory() {
         System.out.println("Mostrar historial de libros");
         notAssignedYet();
     }
 
-    private static void showPenaltiesHistory() {
+    private void showPenaltiesHistory() {
         System.out.println("Mostrar historial de multas");
         notAssignedYet();
     }
 
-    private static void menuAdmin() {
+    private void menuAdmin() {
         int option;
         do {
             System.out.print("""
@@ -254,7 +298,7 @@ public class CommandLineInterfazSystem {
 
     }
 
-    private static void adminUsers() {
+    private void adminUsers() {
         int option;
         do {
             System.out.print("""
@@ -284,7 +328,7 @@ public class CommandLineInterfazSystem {
 
     }
 
-    private static void showRecords() {
+    private void showRecords() {
         int option;
         do {
             System.out.print("""
@@ -313,7 +357,7 @@ public class CommandLineInterfazSystem {
         } while (option != 5);
     }
 
-    private static void adminBooks() {
+    private void adminBooks() {
         int option;
         do {
             System.out.print("""
@@ -342,7 +386,7 @@ public class CommandLineInterfazSystem {
         } while (option != 5);
     }
 
-    private static void showStats() {
+    private void showStats() {
         int option;
         do {
             System.out.print("""
@@ -381,7 +425,7 @@ public class CommandLineInterfazSystem {
         } while (option != 10);
     }
 
-    private static void notAssignedYet() {
+    private void notAssignedYet() {
         System.out.print("""
                 --------------------------------------------
                 ++++++++++++++++++++++++++++++++++++++++++++
@@ -390,7 +434,7 @@ public class CommandLineInterfazSystem {
                 """);
     }
 
-    private static void notAssignedYetFinalFunction() {
+    private void notAssignedYetFinalFunction() {
         System.out.print("""
                 --------------------------------------------
                 ++++++++++++++++++++++++++++++++++++++++++++
@@ -398,7 +442,6 @@ public class CommandLineInterfazSystem {
                 ++++++++++++++++++++++++++++++++++++++++++++
                 """);
     }
-
 
 
 }

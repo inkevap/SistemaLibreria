@@ -2,29 +2,51 @@ package sistemalibreria.model;
 
 import sistemalibreria.config.AppConfig;
 import sistemalibreria.interfaces.IPasswordEncryptor;
-import sistemalibreria.util.BCryptEncryptor;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static sistemalibreria.util.Constants.GUEST_ROLE;
-import static sistemalibreria.util.Constants.USER_ROLE;
-
 public class UserEntity {
+    private final int userSerialId;
+    //    private static final List<Integer> userSerialIdCount = new ArrayList<>(); // mas lento que la implementacion actual
+    private final Set<Integer> userSerialIdCount = new HashSet<>();
+    private final IPasswordEncryptor passwordEncryptor = AppConfig.passwordEncryptor();
     private String userName;
     private String userEmail;
     private String userNickName;
     private String userPassword;
-    private String userRole;
+    private UserRole userRole;
     private String userAddress;
     private String userPhoneNumber;
     private String userPersonalId;
     private Boolean userStatus;
-    private final int userSerialId;
-//    private static final List<Integer> userSerialIdCount = new ArrayList<>(); // mas lento que la implementacion actual
-    private final Set<Integer> userSerialIdCount = new HashSet<>();
-    private final IPasswordEncryptor passwordEncryptor = AppConfig.passwordEncryptor();
 
+
+    public UserEntity(String userName,
+                String userEmail,
+                String userNickName,
+                String userPassword,
+                String userAddress,
+                String userPhoneNumber,
+                UserRole role,
+                boolean userStatus,
+                String userPersonalId,
+                int userSerialId) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userNickName = userNickName;
+        this.userPassword = passwordEncryptor.hashPassword(userPassword);
+        this.userRole = role;
+        this.userAddress = userAddress;
+        this.userPhoneNumber = userPhoneNumber;
+        this.userPersonalId = userPersonalId;
+        this.userStatus = userStatus;
+        if(userSerialId > -1) {
+            this.userSerialId = userSerialId;
+        }else{
+            this.userSerialId = generateUniqueId();
+        }
+    }
 
     public UserEntity(String userName,
                       String userEmail,
@@ -32,12 +54,13 @@ public class UserEntity {
                       String userPassword,
                       String userAddress,
                       String userPhoneNumber,
-                      String userPersonalId) {
+                      String userPersonalId
+                      ) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userNickName = userNickName;
         this.userPassword = passwordEncryptor.hashPassword(userPassword);
-        this.userRole = USER_ROLE;
+        this.userRole = UserRole.USER;
         this.userAddress = userAddress;
         this.userPhoneNumber = userPhoneNumber;
         this.userPersonalId = userPersonalId;
@@ -45,19 +68,21 @@ public class UserEntity {
         this.userSerialId = generateUniqueId();
     }
 
-    public UserEntity(){
+@Deprecated
+    public UserEntity() {
         this.userName = "";
         this.userEmail = "";
         this.userNickName = "";
         this.userPassword = "";
-        this.userRole = GUEST_ROLE;
+        this.userRole = UserRole.USER;
         this.userAddress = "";
         this.userPhoneNumber = "";
         this.userPersonalId = "";
         this.userStatus = false;
         this.userSerialId = generateUniqueId();
     }
-    private int generateUniqueId(){
+
+    private int generateUniqueId() {
         int serialID;
         do {
             serialID = (int) (Math.random() * 1000) + 1;
@@ -91,11 +116,11 @@ public class UserEntity {
         this.userPassword = passwordEncryptor.hashPassword(userPassword);
     }
 
-    public String getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(String role) {
+    public void setUserRole(UserRole role) {
         this.userRole = role;
     }
 

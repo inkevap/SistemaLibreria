@@ -6,8 +6,8 @@ import sistemalibreria.repository.MemoryUserRepository;
 import sistemalibreria.util.BCryptEncryptor;
 
 public class AppConfig {
-    private static IUserRepository userRepo = new MemoryUserRepository();
     private static IPasswordEncryptor passwordEncryptor = new BCryptEncryptor();
+    private static IUserRepository userRepo = new MemoryUserRepository();
 
     public static IUserRepository userRepository(){
         return userRepo;

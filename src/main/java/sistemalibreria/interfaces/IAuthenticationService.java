@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface IAuthenticationService {
 
     public Optional<User> validateUser(UserCredentialsDTO credentials);
-    public void registerNewUser(User newUser);
+    public boolean registerNewUser(User newUser);
 }
