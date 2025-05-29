@@ -4,18 +4,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sistemalibreria.model.User;
 import sistemalibreria.model.UserEntity;
+import sistemalibreria.util.BCryptEncryptor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static sistemalibreria.adapter.UserEntityAdapter.userEntityToUser;
-import static sistemalibreria.adapter.UserEntityAdapter.userToUserEntity;
-import static sistemalibreria.util.Constants.ADMIN_ROLE;
+import static sistemalibreria.adapter.UserEntityAdapter.entityToUser;
+import static sistemalibreria.adapter.UserEntityAdapter.userToEntity;
 
 public class UserEntityAdapterTest {
 
     @DisplayName("verifica si convierte satisfactoriamente User a UserEntity")
     @Test
-    public void UserToUserEntity_ReturnsUserEntityWithTheSameInfo(){
+    public void UserToUserEntity_ReturnsEntityWithTheSameInfo(){
 
         User userToConvert = new User(
                 "Miguel Rojas",
@@ -27,11 +27,11 @@ public class UserEntityAdapterTest {
                 "ID-101"
         );
 
-        UserEntity userConverted= userToUserEntity(userToConvert);
+        UserEntity userConverted= userToEntity(userToConvert);
         assertEquals("Miguel Rojas",userConverted.getUserName());
         assertEquals("migroja@example.com",userConverted.getUserEmail());
         assertEquals("migroja",userConverted.getUserNickName());
-        assertEquals("Password123!",userConverted.getUserPassword());
+        assertTrue(new BCryptEncryptor().checkPassword("Password123!",userConverted.getUserPassword()));
         assertEquals("Calle 2 Zona 1, Ciudad Ejemplo",userConverted.getUserAddress());
         assertEquals("3991-7166",userConverted.getUserPhoneNumber());
         assertEquals("ID-101",userConverted.getUserPersonalId());
@@ -51,11 +51,11 @@ public class UserEntityAdapterTest {
                 "ID-101"
         );
 
-        User userConverted= userEntityToUser(userToConvert);
+        User userConverted= entityToUser(userToConvert);
         assertEquals("Miguel Rojas",userConverted.getUserName());
         assertEquals("migroja@example.com",userConverted.getUserEmail());
         assertEquals("migroja",userConverted.getUserNickName());
-        assertEquals("Password123!",userConverted.getUserPassword());
+        assertTrue(new BCryptEncryptor().checkPassword("Password123!",userConverted.getUserPassword()));
         assertEquals("Calle 2 Zona 1, Ciudad Ejemplo",userConverted.getUserAddress());
         assertEquals("3991-7166",userConverted.getUserPhoneNumber());
         assertEquals("ID-101",userConverted.getUserPersonalId());

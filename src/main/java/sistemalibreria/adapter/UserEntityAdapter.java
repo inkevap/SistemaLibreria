@@ -5,7 +5,7 @@ import sistemalibreria.model.UserEntity;
 
 public class UserEntityAdapter {
 
-    public static User userEntityToUser(UserEntity userEntity){
+    public static User entityToUser(UserEntity userEntity){
           return new User(
                   userEntity.getUserName(),
                   userEntity.getUserEmail(),
@@ -13,12 +13,14 @@ public class UserEntityAdapter {
                   userEntity.getUserPassword(),
                   userEntity.getUserAddress(),
                   userEntity.getUserPhoneNumber(),
+                  userEntity.getUserRole(),
+                  userEntity.getUserStatus(),
                   userEntity.getUserPersonalId(),
                   userEntity.getUserSerialId()
           );
     }
 
-    public static UserEntity userToUserEntity(User user){
+    public static UserEntity userToEntity(User user){
         return new UserEntity(
                 user.getUserName(),
                 user.getUserEmail(),
@@ -26,7 +28,10 @@ public class UserEntityAdapter {
                 user.getUserPassword(),
                 user.getUserAddress(),
                 user.getUserPhoneNumber(),
-                user.getUserPersonalId()
+                user.getUserRole(),
+                user.getUserStatus(),
+                user.getUserPersonalId(),
+                user.getUserSerialId()
         );
     }
 }

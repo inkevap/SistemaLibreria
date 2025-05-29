@@ -21,7 +21,7 @@ public class UserUpdater {
             outdatedUserEntity.setUserPassword(updatedUserEntity.getUserPassword());
         }
 
-        if (!updatedUserEntity.getUserRole().isBlank()) {
+        if (updatedUserEntity.getUserRole() != outdatedUserEntity.getUserRole()) {
             outdatedUserEntity.setUserRole(updatedUserEntity.getUserRole());
         }
 

@@ -1,16 +1,30 @@
 package sistemalibreria;
 
-import sistemalibreria.model.User;
+import sistemalibreria.config.AppConfig;
+import sistemalibreria.interfaces.*;
+import sistemalibreria.service.AdminUserManagementService;
+import sistemalibreria.service.CommandLineInterfazSystem;
+import sistemalibreria.service.DefaultAuthenticationService;
+import sistemalibreria.service.RegularUserManagementService;
 
-import java.util.Scanner;
-
-import static sistemalibreria.service.CommandLineInterfazSystem.innitCLI;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+
+
     public static void main(String[] args) {
-    innitCLI();
+
+        IUserRepository dataBaseUsers = AppConfig.userRepository();
+        IUserService userManagementService = new RegularUserManagementService(dataBaseUsers);
+        IAdminUserService adminUserManagementService = new AdminUserManagementService(dataBaseUsers);
+        IPasswordEncryptor passwordEncryptor = AppConfig.passwordEncryptor();
+        IAuthenticationService authService = new DefaultAuthenticationService(dataBaseUsers, passwordEncryptor);
+
+
+        new CommandLineInterfazSystem(
+                userManagementService, adminUserManagementService, authService
+        ).innitCLI();
     }
 
 }
