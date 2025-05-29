@@ -1,4 +1,3 @@
-```markdown
 # 📚 SistemaLibreria
 
 Un sistema modular de gestión de biblioteca desarrollado en Java con un enfoque orientado a objetos, principios SOLID y arquitectura por capas. Diseñado para ser mantenible, extensible y fácil de probar.
@@ -81,4 +80,3 @@ Las contribuciones están abiertas para quienes deseen extender o profesionaliza
 ## 📄 Licencia
 
 MIT 
-```
